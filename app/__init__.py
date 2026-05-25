@@ -12,4 +12,4 @@ app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from app import models
+from app import models, routes

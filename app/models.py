@@ -49,7 +49,7 @@ class ProductVariant(db.Model):
     size: Mapped["ProductSize"] = relationship("ProductSize", back_populates="variants")
     color: Mapped["ProductColor"] = relationship("ProductColor", back_populates="variants")
     material: Mapped["ProductMaterial"] = relationship("ProductMaterial", back_populates="variants")
-    images: Mapped[list["ProductImage"]] = relationship("ProductImage", back_populates="variants")
+    images: Mapped[list["ProductImage"]] = relationship("ProductImage", back_populates="variant")
     
 class ProductSize(db.Model):
     __tablename__ = "product_sizes"
@@ -100,7 +100,7 @@ class Category(db.Model):
     
     parent: Mapped[Optional["Category"]] = relationship("Category", remote_side=[id], back_populates="children")
     children: Mapped[list["Category"]] = relationship("Category", back_populates="parent")
-    product: Mapped[list["Product"]] = relationship("Product", back_populates="category")
+    products: Mapped[list["Product"]] = relationship("Product", back_populates="category")
 
 class Brand(db.Model):
     __tablename__ = "brands"
@@ -108,4 +108,4 @@ class Brand(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     slug: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
-    product: Mapped[list["Product"]] = relationship("Product", back_populates="brand")
+    products: Mapped[list["Product"]] = relationship("Product", back_populates="brand")
