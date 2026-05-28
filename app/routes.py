@@ -1,72 +1,135 @@
 from app import app, db, models
-from flask import request
+from flask import request, abort
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
+from app.utils import serialize_product, serialize_variant
 
+@app.get("/")
+def Home():
+    return "Backend"
 
 @app.get("/api/products")
 def getProducts():
     
     variants = db.session.scalars(select(models.ProductVariant)
-    .options(
-        selectinload(models.ProductVariant.product),
-        selectinload(models.ProductVariant.images),
-        selectinload(models.ProductVariant.size),
-        selectinload(models.ProductVariant.color),
-        selectinload(models.ProductVariant.material),
-    )).all()
+                                  .join(models.Product)
+                                    .options(
+                                        selectinload(models.ProductVariant.product),
+                                        selectinload(models.ProductVariant.images),
+                                        selectinload(models.ProductVariant.size),
+                                        selectinload(models.ProductVariant.color),
+                                        selectinload(models.ProductVariant.material),
+                                    )).all()
     
     return {
     "variants": [
-        {
-            "id": v.id,
-            "price": v.variant_price,
-            "stock": v.stock,
-            "is_available": v.is_available,
-
-            "product": {
-                "id": v.product.id,
-                "name": v.product.name,
-                "slug": v.product.slug,
-                "short_description": v.product.short_description,
-                "description": v.product.description,
-                "thumbnail": request.host_url.rstrip("/") + "/static/images/" + v.product.thumbnail,
-                "tags": v.product.tags,
-                "is_featured": v.product.is_featured,
-                "created_at": v.product.created_at,
-                "gender": v.product.gender.value,
-                "base_price": v.product.base_price,
-                "category": v.product.category.name if v.product.category else None,
-                "brand": v.product.brand.name if v.product.brand else None,
-            },
-
-            "color": {
-                "name": v.color.name,
-                "hex_code": v.color.hex_code,
-                "slug": v.color.slug,
-            },
-
-            "size": {
-                "name": v.size.name,
-                "sort_order": v.size.sort_order,
-            },
-
-            "material": {
-                "name": v.material.name,
-                "slug": v.material.slug,
-            },
-
-            "images": [
-                {
-                    "id": img.id,
-                    "url": request.host_url.rstrip("/") + "/static/images/" + img.url,
-                    "alt_text": img.alt_text,
-                    "sort_order": img.sort_order,
-                    "variant_id": img.variant_id,
-                }
-                for img in v.images
-            ],
-        }
+        serialize_variant(v)
         for v in variants
     ]
 }
+    
+@app.get("/api/products/<string:productSlug>")
+def getProduct(productSlug):
+    
+    product = db.session.scalar(
+        select(models.Product)
+        .options(
+            selectinload(models.Product.variants)
+                .selectinload(models.ProductVariant.images),
+
+            selectinload(models.Product.variants)
+                .selectinload(models.ProductVariant.color),
+
+            selectinload(models.Product.variants)
+                .selectinload(models.ProductVariant.size),
+
+            selectinload(models.Product.variants)
+                .selectinload(models.ProductVariant.material),
+
+            selectinload(models.Product.category),
+            selectinload(models.Product.brand),
+        )
+        .where(models.Product.slug == productSlug)
+    )
+    
+    if not product:
+        abort(404)
+        
+    return {
+        "product": serialize_product(product)
+    }
+    
+@app.get("/api/categories/<string:category>")
+def getProductsByCategory(category):
+    
+    variants = db.session.scalars(select(models.ProductVariant)
+                                  .join(models.Product)
+                                  .join(models.Category)
+                                    .options(
+                                        selectinload(models.ProductVariant.product),
+                                        selectinload(models.ProductVariant.images),
+                                        selectinload(models.ProductVariant.size),
+                                        selectinload(models.ProductVariant.color),
+                                        selectinload(models.ProductVariant.material),
+                                    )
+                                    .where(models.Category.slug == category)).all()
+    
+    return {
+    "variants": [
+        serialize_variant(v) for v in variants
+    ]
+}
+    
+@app.get("/api/brands/<string:brand>/products")
+def getProductsByBrand(brand):
+
+    variants = db.session.scalars(
+        select(models.ProductVariant)
+        .join(models.Product)
+        .join(models.Brand)
+        .options(
+            selectinload(models.ProductVariant.product),
+            selectinload(models.ProductVariant.images),
+            selectinload(models.ProductVariant.size),
+            selectinload(models.ProductVariant.color),
+            selectinload(models.ProductVariant.material),
+        )
+        .where(models.Brand.slug == brand)
+    ).all()
+
+    return {
+        "variants": [
+        serialize_variant(v) for v in variants
+        ]
+    }
+    
+@app.get("/api/products/featured")
+def getFeaturedProducts():
+
+    products = db.session.scalars(
+        select(models.Product)
+        .options(
+            selectinload(models.Product.variants)
+                .selectinload(models.ProductVariant.images),
+
+            selectinload(models.Product.variants)
+                .selectinload(models.ProductVariant.color),
+
+            selectinload(models.Product.variants)
+                .selectinload(models.ProductVariant.size),
+
+            selectinload(models.Product.variants)
+                .selectinload(models.ProductVariant.material),
+
+            selectinload(models.Product.category),
+            selectinload(models.Product.brand),
+        )
+        .where(models.Product.is_featured == True)
+    ).all()
+
+    return {
+        "products": [
+            serialize_product(product)
+            for product in products
+        ]
+    }
