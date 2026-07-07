@@ -6,7 +6,7 @@ from app.utils import serialize_product, serialize_variant
 
 @app.get("/")
 def Home():
-    return "Backend"
+    return "Hello"
 
 @app.get("/api/products")
 def getProducts():
