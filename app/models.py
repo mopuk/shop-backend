@@ -2,10 +2,12 @@ from typing import Optional
 import enum
 from app import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import ForeignKey, String, Integer, Numeric, DateTime, Boolean, func, Enum
+from sqlalchemy import ForeignKey, String, Integer, Numeric, DateTime, Boolean, func, Enum, Text
 from sqlalchemy.dialects.postgresql import ARRAY
 from datetime import datetime
 from decimal import Decimal
+
+
 
 class TargetGroup(enum.Enum):
     men = "men"
@@ -29,9 +31,9 @@ class Product(db.Model):
     category_id: Mapped[int] = mapped_column(Integer, ForeignKey("categories.id"), nullable=False, index=True)
     brand_id: Mapped[int] = mapped_column(Integer, ForeignKey("brands.id"), nullable=False, index=True)
     
-    variants: Mapped[list["ProductVariant"]] = relationship("ProductVariant", back_populates="product")
-    category: Mapped["Category"] = relationship("Category", back_populates="products")
-    brand: Mapped["Brand"] = relationship("Brand", back_populates="products")
+    variants: Mapped[list[ProductVariant]] = relationship("ProductVariant", back_populates="product")
+    category: Mapped[Category] = relationship("Category", back_populates="products")
+    brand: Mapped[Brand] = relationship("Brand", back_populates="products")
     
 class ProductVariant(db.Model):
     __tablename__ = "product_variants"
@@ -97,6 +99,7 @@ class Category(db.Model):
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     slug: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     parent_id: Mapped[int] = mapped_column(Integer, ForeignKey("categories.id"), nullable=True, index=True)
+    image: Mapped[str] = mapped_column(Text, nullable=True)
     
     parent: Mapped[Optional["Category"]] = relationship("Category", remote_side=[id], back_populates="children")
     children: Mapped[list["Category"]] = relationship("Category", back_populates="parent")
