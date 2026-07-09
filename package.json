@@ -1,0 +1,21 @@
+{
+  "name": "shop-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "make dev",
+    "install": "make install",
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mopuk/shop-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mopuk/shop-backend/issues"
+  },
+  "homepage": "https://github.com/mopuk/shop-backend#readme",
+  "description": ""
+}

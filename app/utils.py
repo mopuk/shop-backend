@@ -1,6 +1,6 @@
 from flask import request
 
-def serialize_variant(variant):
+def serialize_variant(variant, include_product=False):
     return {
         "id": variant.id,
         "price": float(variant.variant_price),
@@ -17,7 +17,7 @@ def serialize_variant(variant):
             serialize_image(img)
             for img in variant.images
         ],
-        "product": serialize_product(variant.product, include_variants=False)
+        "product": serialize_product(variant.product, include_variants=False) if include_product else None
     }
 
 
@@ -62,9 +62,10 @@ def serialize_category(category, include_children=False):
         "name": category.name,
         "slug": category.slug,
         "parent_id": category.parent_id,
+        "image": category.image,
 
         "children": (
-            [serialize_category(child) for child in category.children]
+            [serialize_category(child, include_children=True) for child in category.children]
             if include_children
             else None
         ),
