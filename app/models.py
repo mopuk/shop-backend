@@ -1,12 +1,13 @@
-from typing import Optional
 import enum
-from app import db
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from typing import Optional
+
+from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
 from sqlalchemy import ForeignKey, String, Integer, Numeric, DateTime, Boolean, func, Enum, Text
 from sqlalchemy.dialects.postgresql import ARRAY
+
 from datetime import datetime
 from decimal import Decimal
-
+from app.database import Base
 
 
 class TargetGroup(enum.Enum):
@@ -14,7 +15,7 @@ class TargetGroup(enum.Enum):
     women = "women"
     unisex = "unisex"
     
-class Product(db.Model):
+class Product(Base):
     __tablename__ = "products"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -35,7 +36,7 @@ class Product(db.Model):
     category: Mapped[Category] = relationship("Category", back_populates="products")
     brand: Mapped[Brand] = relationship("Brand", back_populates="products")
     
-class ProductVariant(db.Model):
+class ProductVariant(Base):
     __tablename__ = "product_variants"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -53,7 +54,7 @@ class ProductVariant(db.Model):
     material: Mapped["ProductMaterial"] = relationship("ProductMaterial", back_populates="variants")
     images: Mapped[list["ProductImage"]] = relationship("ProductImage", back_populates="variant")
     
-class ProductSize(db.Model):
+class ProductSize(Base):
     __tablename__ = "product_sizes"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -62,7 +63,7 @@ class ProductSize(db.Model):
     
     variants: Mapped[list["ProductVariant"]] = relationship("ProductVariant", back_populates="size")
 
-class ProductColor(db.Model):
+class ProductColor(Base):
     __tablename__ = "product_colors"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -72,7 +73,7 @@ class ProductColor(db.Model):
     
     variants: Mapped[list["ProductVariant"]] = relationship("ProductVariant", back_populates="color")
     
-class ProductMaterial(db.Model):
+class ProductMaterial(Base):
     __tablename__ = "product_materials"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -81,7 +82,7 @@ class ProductMaterial(db.Model):
     
     variants: Mapped[list["ProductVariant"]] = relationship("ProductVariant", back_populates="material")
     
-class ProductImage(db.Model):
+class ProductImage(Base):
     __tablename__ = "product_images"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -92,7 +93,7 @@ class ProductImage(db.Model):
     
     variant: Mapped[Optional["ProductVariant"]] = relationship("ProductVariant", back_populates="images")
     
-class Category(db.Model):
+class Category(Base):
     __tablename__ = "categories"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -105,7 +106,7 @@ class Category(db.Model):
     children: Mapped[list["Category"]] = relationship("Category", back_populates="parent")
     products: Mapped[list["Product"]] = relationship("Product", back_populates="category")
 
-class Brand(db.Model):
+class Brand(Base):
     __tablename__ = "brands"
     
     id: Mapped[int] = mapped_column(primary_key=True)
