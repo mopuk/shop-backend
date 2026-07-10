@@ -1,17 +1,34 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
-from flask_cors import CORS
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 load_dotenv()
-app = Flask(__name__, static_folder="../static")
-db_uri = os.environ.get("DATABASE_URI")
-app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
-CORS(app, supports_credentials=True, origins=os.environ.get("FRONTEND_URL"))
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+origins = [
+    "http://localhost:3000",
+]
+
+engine = create_engine(os.environ.get("DATABASE_URI"))
+SessionLocal = sessionmaker(bind=engine)
+
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
+    allow_headers=[
+        "Content-Type",
+        "Authorization",
+        "Accept",
+        "X-Requested-With",
+        "Idempotency-Key"
+    ],
+    )
+db_uri = os.environ.get("DATABASE_URI")
+
 
 from app import models, routes
