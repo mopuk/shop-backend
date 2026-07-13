@@ -11,11 +11,11 @@ install: venv
 	$(PIP) install -r requirements.txt
 
 dev:
-	@echo "Starting development server..."
+	@echo "Starting production-ready Gunicorn server..."
 	@if [ -d "$(VENV)" ]; then \
-		$(PYTHON) -m flask --app app run --port 5000; \
+		$(VENV)/bin/gunicorn app.app:app -k uvicorn.workers.UvicornWorker --bind 127.0.0.1:8000; \
 	else \
-		python3 -m flask --app app run --port 5000; \
+		gunicorn app.app:app -k uvicorn.workers.UvicornWorker --bind 127.0.0.1:8000; \
 	fi
 
 test:
