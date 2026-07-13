@@ -13,9 +13,9 @@ install: venv
 dev:
 	@echo "Starting development server..."
 	@if [ -d "$(VENV)" ]; then \
-		$(PYTHON) -m flask --app app run --port 5000; \
+		$(PYTHON) -m fastapi dev; \
 	else \
-		python3 -m flask --app app run --port 5000; \
+		python3 -m fastapi dev; \
 	fi
 
 test:

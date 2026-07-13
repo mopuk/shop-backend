@@ -1,0 +1,16 @@
+services:
+  postgres_db:
+    image: postgres:17-alpine
+    container_name: shop_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: local_user
+      POSTGRES_PASSWORD: local_password
+      POSTGRES_DB: shop_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
