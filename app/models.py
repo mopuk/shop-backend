@@ -12,8 +12,6 @@ from app.database import Base
 from app.enums import TargetGroup, Role, OrderStatus
 
 # Correlated with products
-
-
 class ProductModel(Base):
     __tablename__ = "products"
     
@@ -114,8 +112,6 @@ class BrandModel(Base):
     products: Mapped[list["ProductModel"]] = relationship("Product", back_populates="brand")
     
 # User
-
-
 class UserModel(Base):
     __tablename__ = "users"
     
@@ -132,7 +128,6 @@ class UserModel(Base):
     orders: Mapped[list["OrderModel"]] = relationship("Order", back_populates="user")
 
 # Correlated with carts
-
 class CartModel(Base):
     __tablename__ = "carts"
     
