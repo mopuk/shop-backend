@@ -9,14 +9,12 @@ from datetime import datetime
 from decimal import Decimal
 from app.database import Base
 
+from app.enums import TargetGroup, Role, OrderStatus
+
 # Correlated with products
 
-class TargetGroup(enum.Enum):
-    men = "men"
-    women = "women"
-    unisex = "unisex"
-    
-class Product(Base):
+
+class ProductModel(Base):
     __tablename__ = "products"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -33,11 +31,11 @@ class Product(Base):
     category_id: Mapped[int] = mapped_column(Integer, ForeignKey("categories.id"), nullable=False, index=True)
     brand_id: Mapped[int] = mapped_column(Integer, ForeignKey("brands.id"), nullable=False, index=True)
     
-    variants: Mapped[list["ProductVariant"]] = relationship("ProductVariant", back_populates="product")
-    category: Mapped["Category"] = relationship("Category", back_populates="products")
-    brand: Mapped["Brand"] = relationship("Brand", back_populates="products")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="product")
+    category: Mapped["CategoryModel"] = relationship("Category", back_populates="products")
+    brand: Mapped["BrandModel"] = relationship("Brand", back_populates="products")
     
-class ProductVariant(Base):
+class ProductVariantModel(Base):
     __tablename__ = "product_variants"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -49,22 +47,22 @@ class ProductVariant(Base):
     material_id:Mapped[int] = mapped_column(Integer, ForeignKey("product_materials.id"), nullable=False)
     size_id:Mapped[int] = mapped_column(Integer, ForeignKey("product_sizes.id"), nullable=False)
     
-    product: Mapped["Product"] = relationship("Product", back_populates="variants")
-    size: Mapped["ProductSize"] = relationship("ProductSize", back_populates="variants")
-    color: Mapped["ProductColor"] = relationship("ProductColor", back_populates="variants")
-    material: Mapped["ProductMaterial"] = relationship("ProductMaterial", back_populates="variants")
-    images: Mapped[list["ProductImage"]] = relationship("ProductImage", back_populates="variant")
+    product: Mapped["ProductModel"] = relationship("Product", back_populates="variants")
+    size: Mapped["ProductSizeModel"] = relationship("ProductSize", back_populates="variants")
+    color: Mapped["ProductColorModel"] = relationship("ProductColor", back_populates="variants")
+    material: Mapped["ProductMaterialModel"] = relationship("ProductMaterial", back_populates="variants")
+    images: Mapped[list["ProductImageModel"]] = relationship("ProductImage", back_populates="variant")
     
-class ProductSize(Base):
+class ProductSizeModel(Base):
     __tablename__ = "product_sizes"
     
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, nullable=False)
     
-    variants: Mapped[list["ProductVariant"]] = relationship("ProductVariant", back_populates="size")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="size")
 
-class ProductColor(Base):
+class ProductColorModel(Base):
     __tablename__ = "product_colors"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -72,18 +70,18 @@ class ProductColor(Base):
     hex_code: Mapped[str] = mapped_column(String(7), nullable=False)
     slug: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     
-    variants: Mapped[list["ProductVariant"]] = relationship("ProductVariant", back_populates="color")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="color")
     
-class ProductMaterial(Base):
+class ProductMaterialModel(Base):
     __tablename__ = "product_materials"
     
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     slug: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     
-    variants: Mapped[list["ProductVariant"]] = relationship("ProductVariant", back_populates="material")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="material")
     
-class ProductImage(Base):
+class ProductImageModel(Base):
     __tablename__ = "product_images"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -92,9 +90,9 @@ class ProductImage(Base):
     sort_order: Mapped[int] = mapped_column(Integer, nullable=False)
     variant_id: Mapped[int] = mapped_column(Integer, ForeignKey("product_variants.id"), nullable=False)
     
-    variant: Mapped[Optional["ProductVariant"]] = relationship("ProductVariant", back_populates="images")
+    variant: Mapped[Optional["ProductVariantModel"]] = relationship("ProductVariant", back_populates="images")
     
-class Category(Base):
+class CategoryModel(Base):
     __tablename__ = "categories"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -103,25 +101,22 @@ class Category(Base):
     parent_id: Mapped[int] = mapped_column(Integer, ForeignKey("categories.id"), nullable=True, index=True)
     image: Mapped[str] = mapped_column(Text, nullable=True)
     
-    parent: Mapped[Optional["Category"]] = relationship("Category", remote_side=[id], back_populates="children")
-    children: Mapped[list["Category"]] = relationship("Category", back_populates="parent")
-    products: Mapped[list["Product"]] = relationship("Product", back_populates="category")
+    parent: Mapped[Optional["CategoryModel"]] = relationship("Category", remote_side=[id], back_populates="children")
+    children: Mapped[list["CategoryModel"]] = relationship("Category", back_populates="parent")
+    products: Mapped[list["ProductModel"]] = relationship("Product", back_populates="category")
 
-class Brand(Base):
+class BrandModel(Base):
     __tablename__ = "brands"
     
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     slug: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
-    products: Mapped[list["Product"]] = relationship("Product", back_populates="brand")
+    products: Mapped[list["ProductModel"]] = relationship("Product", back_populates="brand")
     
 # User
 
-class Role(enum.Enum):
-    customer = "customer"
-    admin = "admin"
-    
-class User(Base):
+
+class UserModel(Base):
     __tablename__ = "users"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -133,12 +128,12 @@ class User(Base):
     role: Mapped[Role] = mapped_column(Enum(Role, native_enum=True), nullable=False, default=Role.customer)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), nullable=False)
     
-    cart: Mapped[Optional["Cart"]] = relationship("Cart", back_populates="user", uselist=False, cascade="all, delete-orphan")
-    orders: Mapped[list["Order"]] = relationship("Order", back_populates="user")
+    cart: Mapped[Optional["CartModel"]] = relationship("Cart", back_populates="user", uselist=False, cascade="all, delete-orphan")
+    orders: Mapped[list["OrderModel"]] = relationship("Order", back_populates="user")
 
 # Correlated with carts
 
-class Cart(Base):
+class CartModel(Base):
     __tablename__ = "carts"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -146,10 +141,10 @@ class Cart(Base):
     
     updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), server_onupdate=FetchedValue())
     
-    user: Mapped["User"] = relationship("User", back_populates="cart")
-    items: Mapped[list["CartItem"]] = relationship("CartItem", back_populates="cart", cascade="all, delete-orphan")
+    user: Mapped["UserModel"] = relationship("User", back_populates="cart")
+    items: Mapped[list["CartItemModel"]] = relationship("CartItem", back_populates="cart", cascade="all, delete-orphan")
     
-class CartItem(Base):
+class CartItemModel(Base):
     __tablename__ = "cart_items"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -160,19 +155,15 @@ class CartItem(Base):
     quantity: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     price_at_addition: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
     
-    cart: Mapped["Cart"] = relationship("Cart", back_populates="items")
-    product: Mapped["Product"] = relationship("Product")
+    cart: Mapped["CartModel"] = relationship("Cart", back_populates="items")
+    product: Mapped["ProductModel"] = relationship("Product")
     
     __table_args__ = (
         UniqueConstraint('cart_id', 'slug', name='uq_cart_item_slug'),
     )
     
-class OrderStatus(enum.Enum):
-    pending = "pending"
-    paid = "paid"
-    delivered = "delivered"
-    
-class Order(Base):
+
+class OrderModel(Base):
     __tablename__ = "orders"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -189,10 +180,10 @@ class Order(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), server_onupdate=FetchedValue())
     
-    user: Mapped["User"] = relationship("User", back_populates="orders")
-    items: Mapped[list["OrderItem"]] = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
+    user: Mapped["UserModel"] = relationship("User", back_populates="orders")
+    items: Mapped[list["OrderItemModel"]] = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
     
-class OrderItem(Base):
+class OrderItemModel(Base):
     __tablename__ = "order_items"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -204,5 +195,5 @@ class OrderItem(Base):
     quantity: Mapped[int] = mapped_column(Integer, nullable=False)
     price_paid: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
     
-    order: Mapped["Order"] = relationship("Order", back_populates="items")
-    product: Mapped["Product"] = relationship("Product")
+    order: Mapped["OrderModel"] = relationship("Order", back_populates="items")
+    product: Mapped["ProductModel"] = relationship("Product")

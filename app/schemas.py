@@ -8,14 +8,13 @@ from fastapi import Query
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl, StringConstraints
 
 
-class BaseScheme(BaseModel):
+class BaseSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
-
 
 tag_string = Annotated[str, StringConstraints(max_length=40)]
 
 
-class ProductScheme(BaseScheme):
+class ProductSchema(BaseSchema):
     id: int
     name: Annotated[str, Query(max_length=40)]
     description: Annotated[str, Query(max_length=250)] | None = None
@@ -29,12 +28,12 @@ class ProductScheme(BaseScheme):
     base_price: Decimal = Field(max_digits=10, decimal_places=2)
     category_id: int
     brand_id: int
-    variants: list["ProductVariantScheme"] = Field(default_factory=list)
-    category: "CategoryScheme"
-    brand: "BrandScheme"
+    variants: list["ProductVariantSchema"] = Field(default_factory=list)
+    category: "CategorySchema"
+    brand: "BrandSchema"
 
 
-class ProductVariantScheme(BaseScheme):
+class ProductVariantSchema(BaseSchema):
     id: int
     variant_price: Decimal = Field(max_digits=10, decimal_places=2)
     stock: int
@@ -43,57 +42,57 @@ class ProductVariantScheme(BaseScheme):
     color_id: int
     material_id: int
     size_id: int
-    product: "ProductScheme | None" = None
-    size: "ProductSizeScheme"
-    color: "ProductColorScheme"
-    material: "ProductMaterialScheme"
-    images: list["ProductImageScheme"] = Field(default_factory=list)
+    product: "ProductSchema | None" = None
+    size: "ProductSizeSchema"
+    color: "ProductColorSchema"
+    material: "ProductMaterialSchema"
+    images: list["ProductImageSchema"] = Field(default_factory=list)
 
 
-class ProductSizeScheme(BaseScheme):
+class ProductSizeSchema(BaseSchema):
     id: int
     name: Annotated[str, Query(max_length=40)]
     sort_order: int
-    variants: list["ProductVariantScheme"] = Field(default_factory=list)
+    variants: list["ProductVariantSchema"] = Field(default_factory=list)
 
 
-class ProductColorScheme(BaseScheme):
+class ProductColorSchema(BaseSchema):
     id: int
     name: Annotated[str, Query(max_length=40)]
     hex_code: Annotated[str, Query(max_length=7)]
     slug: Annotated[str, Query(max_length=255)]
-    variants: list["ProductVariantScheme"] = Field(default_factory=list)
+    variants: list["ProductVariantSchema"] = Field(default_factory=list)
 
 
-class ProductMaterialScheme(BaseScheme):
+class ProductMaterialSchema(BaseSchema):
     id: int
     name: Annotated[str, Query(max_length=40)]
     slug: Annotated[str, Query(max_length=255)]
-    variants: list["ProductVariantScheme"] = Field(default_factory=list)
+    variants: list["ProductVariantSchema"] = Field(default_factory=list)
 
 
-class ProductImageScheme(BaseScheme):
+class ProductImageSchema(BaseSchema):
     id: int
     url: HttpUrl
     alt_text: Annotated[str, Query(max_length=100)]
     sort_order: int
     variant_id: int
-    variant: "ProductVariantScheme | None" = None
+    variant: "ProductVariantSchema | None" = None
 
 
-class CategoryScheme(BaseScheme):
+class CategorySchema(BaseSchema):
     id: int
     name: Annotated[str, Query(max_length=40)]
     slug: Annotated[str, Query(max_length=255)]
     parent_id: int | None = None
     image: str | None = None
-    parent: "CategoryScheme | None" = None
-    children: list["CategoryScheme"] = Field(default_factory=list)
-    products: list["ProductScheme"] = Field(default_factory=list)
+    parent: "CategorySchema | None" = None
+    children: list["CategorySchema"] = Field(default_factory=list)
+    products: list["ProductSchema"] = Field(default_factory=list)
 
 
-class BrandScheme(BaseScheme):
+class BrandSchema(BaseSchema):
     id: int
     name: Annotated[str, Query(max_length=40)]
     slug: Annotated[str, Query(max_length=255)]
-    products: list["ProductScheme"] = Field(default_factory=list)
+    products: list["ProductSchema"] = Field(default_factory=list)
