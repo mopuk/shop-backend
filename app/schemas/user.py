@@ -11,7 +11,7 @@ class Token(BaseSchema):
     token_type: str
     
 class TokenData(BaseSchema):
-    user_id: int | None = None
+    user_id: int
     
 class UserBase(BaseSchema):
     email: EmailStr
