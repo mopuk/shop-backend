@@ -5,7 +5,7 @@ from app.config import config
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import Annotated
-from app.models import UserModel
+from app.models.user import UserModel
 from app.schemas.user import TokenData, Token, UserCreate, UserResponse
 from app.database import get_db
 from sqlalchemy import select

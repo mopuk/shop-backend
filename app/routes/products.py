@@ -1,10 +1,12 @@
-from app import models
-from app.database import get_db
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.orm import selectinload, Session
+from sqlalchemy.orm import selectinload
+from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Annotated
+
+from app.models.product import ProductModel, ProductMaterialModel, ProductColorModel, ProductImageModel, ProductSizeModel, ProductVariantModel, CategoryModel, BrandModel
+from app.database import get_db
 
 router = APIRouter(
     prefix="/api/v1",
@@ -13,75 +15,64 @@ router = APIRouter(
 
 
 @router.get("/products")
-def getProducts(db: Annotated[Session, Depends(get_db)]):
+async def get_products(db: Annotated[AsyncSession, Depends(get_db)]):
     
-    variants = db.scalars(select(models.ProductVariant)
-                                  .join(models.Product)
-                                    .options(
-                                        selectinload(models.ProductVariant.product),
-                                        selectinload(models.ProductVariant.images),
-                                        selectinload(models.ProductVariant.size),
-                                        selectinload(models.ProductVariant.color),
-                                        selectinload(models.ProductVariant.material),
-                                    )).all()
-    
+    smtm = select(ProductVariantModel).join(ProductModel).options(
+                                        selectinload(ProductVariantModel.product),
+                                        selectinload(ProductVariantModel.images),
+                                        selectinload(ProductVariantModel.size),
+                                        selectinload(ProductVariantModel.color),
+                                        selectinload(ProductVariantModel.material),
+                                    )
+    variants = await db.execute(smtm)
     return {
-    "variants": variants
+    "variants": variants.scalars().all()
 }
 
     
 @router.get("/products/featured")
-def getFeaturedProducts(db: Annotated[Session, Depends(get_db)]):
+async def get_featured_products(db: Annotated[AsyncSession, Depends(get_db)]):
 
-    products = db.scalars(
-        select(models.Product)
-        .options(
-            selectinload(models.Product.variants)
-                .selectinload(models.ProductVariant.images),
+    smtm = select(ProductModel).options(
+            selectinload(ProductModel.variants)
+            .selectinload(ProductVariantModel.images),
+            selectinload(ProductModel.variants)
+            .selectinload(ProductVariantModel.color),
+            selectinload(ProductModel.variants)
+            .selectinload(ProductVariantModel.size),
+            selectinload(ProductModel.variants)
+            .selectinload(ProductVariantModel.material),
+            selectinload(ProductModel.category),
+            selectinload(ProductModel.brand),
+        ).where(ProductModel.is_featured == True)
 
-            selectinload(models.Product.variants)
-                .selectinload(models.ProductVariant.color),
-
-            selectinload(models.Product.variants)
-                .selectinload(models.ProductVariant.size),
-
-            selectinload(models.Product.variants)
-                .selectinload(models.ProductVariant.material),
-
-            selectinload(models.Product.category),
-            selectinload(models.Product.brand),
-        )
-        .where(models.Product.is_featured == True)
-    ).all()
-
+    products = await db.execute(smtm)
     return {
-        "products": products
+        "products": products.scalars().all()
     }
 
 @router.get("/products/{product_slug}")
-def getProduct(product_slug, db: Annotated[Session, Depends(get_db)]):
+async def get_product(product_slug: str, db: Annotated[AsyncSession, Depends(get_db)]):
     
     try:
-        product = db.scalar(
-            select(models.Product)
-            .options(
-                selectinload(models.Product.variants)
-                    .selectinload(models.ProductVariant.images),
+        smtm = select(ProductModel).options(
+                selectinload(ProductModel.variants)
+                    .selectinload(ProductVariantModel.images),
 
-                selectinload(models.Product.variants)
-                    .selectinload(models.ProductVariant.color),
+                selectinload(ProductModel.variants)
+                    .selectinload(ProductVariantModel.color),
 
-                selectinload(models.Product.variants)
-                    .selectinload(models.ProductVariant.size),
+                selectinload(ProductModel.variants)
+                    .selectinload(ProductVariantModel.size),
 
-                selectinload(models.Product.variants)
-                    .selectinload(models.ProductVariant.material),
+                selectinload(ProductModel.variants)
+                    .selectinload(ProductVariantModel.material),
 
-                selectinload(models.Product.category),
-                selectinload(models.Product.brand),
-            )
-            .where(models.Product.slug == product_slug)
-        )
+                selectinload(ProductModel.category),
+                selectinload(ProductModel.brand),
+            ).where(ProductModel.slug == product_slug)
+        result = await db.execute(smtm)
+        product = result.scalar_one_or_none()
     except SQLAlchemyError:
         raise HTTPException(500, "Error in the database")
     if not product:
@@ -90,59 +81,50 @@ def getProduct(product_slug, db: Annotated[Session, Depends(get_db)]):
     return product
 
 @router.get("/categories")
-def getCategories(db: Annotated[Session, Depends(get_db)]):
+async def get_categories(db: Annotated[AsyncSession, Depends(get_db)]):
     
-    categories = db.scalars(select(models.Category)).all()
+    categories = await db.execute(select(CategoryModel))
 
     return {
-        "categories": categories
+        "categories": categories.scalars().all()
     }
     
-@router.get("/categories/{category}")
-def getProductsByCategory(category: str, db: Annotated[Session, Depends(get_db)]):
+@router.get("/categories/{category_slug}")
+async def get_products_by_category(category_slug: str, db: Annotated[AsyncSession, Depends(get_db)]):
     
-    variants = db.scalars(select(models.ProductVariant)
-                                  .join(models.Product)
-                                  .join(models.Category)
-                                    .options(
-                                        selectinload(models.ProductVariant.product),
-                                        selectinload(models.ProductVariant.images),
-                                        selectinload(models.ProductVariant.size),
-                                        selectinload(models.ProductVariant.color),
-                                        selectinload(models.ProductVariant.material)
-                                    )
-                                    .where(models.Category.slug == category)).all()
-    
+    smtm = select(ProductVariantModel).join(ProductModel).join(CategoryModel).options(
+                                        selectinload(ProductVariantModel.product),
+                                        selectinload(ProductVariantModel.images),
+                                        selectinload(ProductVariantModel.size),
+                                        selectinload(ProductVariantModel.color),
+                                        selectinload(ProductVariantModel.material)
+                                    ).where(CategoryModel.slug == category_slug)
+    variants = await db.execute(smtm)
     return {
-    "variants": variants
+    "variants": variants.scalars().all()
 }
 
 @router.get("/brands")
-def getBrands(db: Annotated[Session, Depends(get_db)]):
+async def get_brands(db: Annotated[AsyncSession, Depends(get_db)]):
     
-    brands = db.scalars(select(models.Brand)).all()
+    brands = await db.execute(select(BrandModel))
 
     return {
-        "brands": brands
+        "brands": brands.scalars().all()
     }
 
-@router.get("/brands/{brand}/products")
-def getProductsByBrand(brand: str, db: Annotated[Session, Depends(get_db)]):
+@router.get("/brands/{brand_slug}/products")
+async def get_products_by_brand(brand_slug: str, db: Annotated[AsyncSession, Depends(get_db)]):
 
-    variants = db.scalars(
-        select(models.ProductVariant)
-        .join(models.Product)
-        .join(models.Brand)
-        .options(
-            selectinload(models.ProductVariant.product),
-            selectinload(models.ProductVariant.images),
-            selectinload(models.ProductVariant.size),
-            selectinload(models.ProductVariant.color),
-            selectinload(models.ProductVariant.material),
-        )
-        .where(models.Brand.slug == brand)
-    ).all()
-
+    smtm = select(ProductVariantModel).join(ProductModel).join(BrandModel).options(
+                selectinload(ProductVariantModel.product),
+                selectinload(ProductVariantModel.images),
+                selectinload(ProductVariantModel.size),
+                selectinload(ProductVariantModel.color),
+                selectinload(ProductVariantModel.material),
+            ).where(BrandModel.slug == brand_slug)
+    
+    variants = await db.execute(smtm)
     return {
-        "variants": variants
+        "variants": variants.scalars().all()
     }
