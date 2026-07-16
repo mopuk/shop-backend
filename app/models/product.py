@@ -25,9 +25,9 @@ class ProductModel(Base):
     category_id: Mapped[int] = mapped_column(Integer, ForeignKey("categories.id"), nullable=False, index=True)
     brand_id: Mapped[int] = mapped_column(Integer, ForeignKey("brands.id"), nullable=False, index=True)
     
-    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="product")
-    category: Mapped["CategoryModel"] = relationship("Category", back_populates="products")
-    brand: Mapped["BrandModel"] = relationship("Brand", back_populates="products")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariantModel", back_populates="product")
+    category: Mapped["CategoryModel"] = relationship("CategoryModel", back_populates="products")
+    brand: Mapped["BrandModel"] = relationship("BrandModel", back_populates="products")
     
 class ProductVariantModel(Base):
     __tablename__ = "product_variants"
@@ -41,11 +41,11 @@ class ProductVariantModel(Base):
     material_id:Mapped[int] = mapped_column(Integer, ForeignKey("product_materials.id"), nullable=False)
     size_id:Mapped[int] = mapped_column(Integer, ForeignKey("product_sizes.id"), nullable=False)
     
-    product: Mapped["ProductModel"] = relationship("Product", back_populates="variants")
-    size: Mapped["ProductSizeModel"] = relationship("ProductSize", back_populates="variants")
-    color: Mapped["ProductColorModel"] = relationship("ProductColor", back_populates="variants")
-    material: Mapped["ProductMaterialModel"] = relationship("ProductMaterial", back_populates="variants")
-    images: Mapped[list["ProductImageModel"]] = relationship("ProductImage", back_populates="variant")
+    product: Mapped["ProductModel"] = relationship("ProductModel", back_populates="variants")
+    size: Mapped["ProductSizeModel"] = relationship("ProductSizeModel", back_populates="variants")
+    color: Mapped["ProductColorModel"] = relationship("ProductColorModel", back_populates="variants")
+    material: Mapped["ProductMaterialModel"] = relationship("ProductMaterialModel", back_populates="variants")
+    images: Mapped[list["ProductImageModel"]] = relationship("ProductImageModel", back_populates="variant")
     
 class ProductSizeModel(Base):
     __tablename__ = "product_sizes"
@@ -54,7 +54,7 @@ class ProductSizeModel(Base):
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, nullable=False)
     
-    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="size")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariantModel", back_populates="size")
 
 class ProductColorModel(Base):
     __tablename__ = "product_colors"
@@ -64,7 +64,7 @@ class ProductColorModel(Base):
     hex_code: Mapped[str] = mapped_column(String(7), nullable=False)
     slug: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     
-    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="color")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariantModel", back_populates="color")
     
 class ProductMaterialModel(Base):
     __tablename__ = "product_materials"
@@ -73,7 +73,7 @@ class ProductMaterialModel(Base):
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     slug: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     
-    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="material")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariantModel", back_populates="material")
     
 class ProductImageModel(Base):
     __tablename__ = "product_images"
@@ -84,7 +84,7 @@ class ProductImageModel(Base):
     sort_order: Mapped[int] = mapped_column(Integer, nullable=False)
     variant_id: Mapped[int] = mapped_column(Integer, ForeignKey("product_variants.id"), nullable=False)
     
-    variant: Mapped[Optional["ProductVariantModel"]] = relationship("ProductVariant", back_populates="images")
+    variant: Mapped[Optional["ProductVariantModel"]] = relationship("ProductVariantModel", back_populates="images")
     
 class CategoryModel(Base):
     __tablename__ = "categories"
@@ -95,9 +95,9 @@ class CategoryModel(Base):
     parent_id: Mapped[int] = mapped_column(Integer, ForeignKey("categories.id"), nullable=True, index=True)
     image: Mapped[str] = mapped_column(Text, nullable=True)
     
-    parent: Mapped[Optional["CategoryModel"]] = relationship("Category", remote_side=[id], back_populates="children")
-    children: Mapped[list["CategoryModel"]] = relationship("Category", back_populates="parent")
-    products: Mapped[list["ProductModel"]] = relationship("Product", back_populates="category")
+    parent: Mapped[Optional["CategoryModel"]] = relationship("CategoryModel", remote_side=[id], back_populates="children")
+    children: Mapped[list["CategoryModel"]] = relationship("CategoryModel", back_populates="parent")
+    products: Mapped[list["ProductModel"]] = relationship("ProductModel", back_populates="category")
 
 class BrandModel(Base):
     __tablename__ = "brands"
@@ -105,5 +105,5 @@ class BrandModel(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     slug: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
-    products: Mapped[list["ProductModel"]] = relationship("Product", back_populates="brand")
+    products: Mapped[list["ProductModel"]] = relationship("ProductModel", back_populates="brand")
     

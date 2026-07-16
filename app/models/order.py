@@ -1,5 +1,4 @@
-from typing import Optional
-
+from typing import Optional, TYPE_CHECKING
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, String, Integer, Numeric, DateTime, func, Enum, FetchedValue
 from datetime import datetime
@@ -7,9 +6,11 @@ from decimal import Decimal
 
 from app.database import Base
 from app.enums import OrderStatus
-from app.models.user import UserModel
-from app.models.product import ProductModel
 
+if TYPE_CHECKING:
+    from app.models.user import UserModel
+    from app.models.order import OrderItemModel
+    from app.models.product import ProductModel
 
 class OrderModel(Base):
     __tablename__ = "orders"
@@ -28,8 +29,8 @@ class OrderModel(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), server_onupdate=FetchedValue())
     
-    user: Mapped["UserModel"] = relationship("User", back_populates="orders")
-    items: Mapped[list["OrderItemModel"]] = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
+    user: Mapped["UserModel"] = relationship("UserModel", back_populates="orders")
+    items: Mapped[list["OrderItemModel"]] = relationship("OrderItemModel", back_populates="order", cascade="all, delete-orphan")
     
 class OrderItemModel(Base):
     __tablename__ = "order_items"
@@ -43,5 +44,5 @@ class OrderItemModel(Base):
     quantity: Mapped[int] = mapped_column(Integer, nullable=False)
     price_paid: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
     
-    order: Mapped["OrderModel"] = relationship("Order", back_populates="items")
-    product: Mapped["ProductModel"] = relationship("Product")
+    order: Mapped["OrderModel"] = relationship("OrderModel", back_populates="items")
+    product: Mapped["ProductModel"] = relationship("ProductModel")

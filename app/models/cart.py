@@ -2,10 +2,12 @@ from sqlalchemy import Integer, String, DateTime, ForeignKey, Numeric, func, Fet
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 from decimal import Decimal
-
 from app.database import Base
-from app.models.user import UserModel
-from app.models.product import ProductModel
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from app.models.user import UserModel
+    from app.models.product import ProductModel
 
 class CartModel(Base):
     __tablename__ = "carts"
@@ -15,8 +17,8 @@ class CartModel(Base):
     
     updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), server_onupdate=FetchedValue())
     
-    user: Mapped["UserModel"] = relationship("User", back_populates="cart")
-    items: Mapped[list["CartItemModel"]] = relationship("CartItem", back_populates="cart", cascade="all, delete-orphan")
+    user: Mapped["UserModel"] = relationship("UserModel", back_populates="cart")
+    items: Mapped[list["CartItemModel"]] = relationship("CartItemModel", back_populates="cart", cascade="all, delete-orphan")
     
 class CartItemModel(Base):
     __tablename__ = "cart_items"
@@ -29,8 +31,8 @@ class CartItemModel(Base):
     quantity: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     price_at_addition: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
     
-    cart: Mapped["CartModel"] = relationship("Cart", back_populates="items")
-    product: Mapped["ProductModel"] = relationship("Product")
+    cart: Mapped["CartModel"] = relationship("CartModel", back_populates="items")
+    product: Mapped["ProductModel"] = relationship("ProductModel")
     
     __table_args__ = (
         UniqueConstraint('cart_id', 'slug', name='uq_cart_item_slug'),

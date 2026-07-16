@@ -1,7 +1,11 @@
 from sqlalchemy import String, DateTime, Boolean, Enum, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from datetime import datetime
+
+if TYPE_CHECKING:
+    from app.models.cart import CartModel
+    from app.models.order import OrderModel
 
 from app.enums import Role
 from app.models.cart import CartModel
@@ -20,5 +24,5 @@ class UserModel(Base):
     role: Mapped[Role] = mapped_column(Enum(Role, native_enum=True), nullable=False, default=Role.customer)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), nullable=False)
     
-    cart: Mapped[Optional["CartModel"]] = relationship("Cart", back_populates="user", uselist=False, cascade="all, delete-orphan")
-    orders: Mapped[list["OrderModel"]] = relationship("Order", back_populates="user")
+    cart: Mapped[Optional["CartModel"]] = relationship("CartModel", back_populates="user", uselist=False, cascade="all, delete-orphan")
+    orders: Mapped[list["OrderModel"]] = relationship("OrderModel", back_populates="user")
