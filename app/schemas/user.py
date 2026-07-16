@@ -1,5 +1,4 @@
 from pydantic import BaseModel, ConfigDict, EmailStr
-from app.models import Role
 from datetime import datetime
 from app.enums import Role
 
@@ -32,6 +31,7 @@ class UserInDB(UserBase):
     is_active: bool
     role: Role
     created_at: datetime
-    
+
+
     
     
