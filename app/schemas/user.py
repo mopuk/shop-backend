@@ -16,22 +16,13 @@ class UserBase(BaseSchema):
     email: EmailStr
     username: str
     
-class UserCreate(UserBase):
+class UserCreateSchema(UserBase):
     password: str
     
-class UserResponse(UserBase):
+class UserResponseSchema(UserBase):
     id: int
     is_active: bool = True
     role: Role
     created_at: datetime
-    
-class UserInDB(UserBase):
-    id: int
-    hashed_password: str
-    is_active: bool
-    role: Role
-    created_at: datetime
-
-
     
     
