@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, HttpUrl
+from pydantic import BaseModel, ConfigDict, HttpUrl, Field
 from decimal import Decimal
 from datetime import datetime
 
@@ -7,20 +7,20 @@ class BaseSchema(BaseModel):
     
 class CartItemCreate(BaseSchema):
     variant_id: int
-    slug: str
     quantity: int = 1
     
-class CartProductSnippet(BaseSchema):
+class CartVariantSnippet(BaseModel):
     id: int
-    slug: str
-    price: Decimal
-    image_url: HttpUrl
+    price: Decimal = Field(alias="variant_price")
+    thumbnail: HttpUrl | None
+    
+    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
     
 class CartItemResponse(BaseSchema):
     id: int
     quantity: int
     price_at_addition: Decimal
-    product: CartProductSnippet
+    variant: CartVariantSnippet
     
 class CartResponse(BaseSchema):
     user_id: int

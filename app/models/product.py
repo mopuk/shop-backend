@@ -40,8 +40,9 @@ class ProductVariantModel(Base):
     color_id:Mapped[int] = mapped_column(Integer, ForeignKey("product_colors.id"), nullable=False)
     material_id:Mapped[int] = mapped_column(Integer, ForeignKey("product_materials.id"), nullable=False)
     size_id:Mapped[int] = mapped_column(Integer, ForeignKey("product_sizes.id"), nullable=False)
+    thumbnail: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     
-    size: Mapped["ProductSizeModel"] = relationship("ProductSizModel", back_populates="variants")
+    size: Mapped["ProductSizeModel"] = relationship("ProductSizeModel", back_populates="variants")
     color: Mapped["ProductColorModel"] = relationship("ProductColorModel", back_populates="variants")
     material: Mapped["ProductMaterialModel"] = relationship("ProductMaterialModel", back_populates="variants")
     product: Mapped["ProductModel"] = relationship("ProductModel", back_populates="variants")
@@ -54,6 +55,7 @@ class ProductImageModel(Base):
     url: Mapped[str] = mapped_column(String(255), nullable=False)
     alt_text: Mapped[str] = mapped_column(String(100), nullable=False)
     sort_order: Mapped[int] = mapped_column(nullable=False)
+    variant_id: Mapped[int] = mapped_column(ForeignKey("product_variants.id"), nullable=False)
     
     variant: Mapped[Optional["ProductVariantModel"]] = relationship("ProductVariantModel", back_populates="images")
 
@@ -65,7 +67,7 @@ class ProductSizeModel(Base):
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, nullable=False)
     
-    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="size")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariantModel", back_populates="size")
 
 class ProductColorModel(Base):
     __tablename__ = "product_colors"
@@ -75,7 +77,7 @@ class ProductColorModel(Base):
     hex_code: Mapped[str] = mapped_column(String(7), nullable=False)
     slug: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     
-    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="color")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariantModel", back_populates="color")
     
 class ProductMaterialModel(Base):
     __tablename__ = "product_materials"
@@ -84,7 +86,7 @@ class ProductMaterialModel(Base):
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     slug: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     
-    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariant", back_populates="material")
+    variants: Mapped[list["ProductVariantModel"]] = relationship("ProductVariantModel", back_populates="material")
     
 class CategoryModel(Base):
     __tablename__ = "categories"

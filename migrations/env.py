@@ -8,7 +8,9 @@ from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-load_dotenv(os.path.join(os.path.dirname(__file__), '../app/.env'))
+env_path = os.path.join(os.path.dirname(__file__), '../app/.env')
+load_dotenv(env_path)
+
 
 from app.database import Base
 import app.models  # noqa: F401

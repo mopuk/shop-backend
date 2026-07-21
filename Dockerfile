@@ -11,5 +11,8 @@ COPY ./static /code/static
 
 COPY ./alembic.ini /code/alembic.ini
 COPY ./migrations /code/migrations
+COPY ./tests /code/tests
+COPY ./pytest.ini /code/pytest.ini
+COPY ./conftest.py /code/conftest.py
 
 CMD ["fastapi", "run", "app/app.py", "--port", "8000"]

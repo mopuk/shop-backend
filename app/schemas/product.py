@@ -8,6 +8,7 @@ from typing import Annotated, Literal
 from fastapi import Query
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl, StringConstraints
 
+from app.enums import TargetGroup
 
 class BaseSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -25,10 +26,10 @@ class ProductSchema(BaseSchema):
     tags: list[tag_string] | None = None
     is_featured: bool
     created_at: datetime
-    gender: Literal["men", "women", "unisex"]
+    gender: TargetGroup
     base_price: Decimal = Field(max_digits=10, decimal_places=2)
-    variants: list["ProductVariantSchema"] = Field(default_factory=list)
-    category: "CategorySchema"
+    variants: list["ProductVariantNestedSchema"] = Field(default_factory=list)
+    category: "CategorySummarySchema"
     brand: "BrandSchema"
 
 
@@ -38,14 +39,14 @@ class ProductVariantSchema(BaseSchema):
     variant_price: Decimal = Field(max_digits=10, decimal_places=2)
     stock: int
     is_available: bool
-    product: "ProductSchema | None" = None
+    product: "ProductSummarySchema | None" = None
     size: "ProductSizeSchema"
     color: "ProductColorSchema"
     material: "ProductMaterialSchema"
     images: list["ProductImageSchema"] = Field(default_factory=list)
 
 class ProductVariantNestedSchema(BaseSchema):
-    """Used when nested inside ProductVariantSchema, does not include product"""
+    """Used when nested inside ProductSchema, does not include product"""
     id: int
     variant_price: Decimal = Field(max_digits=10, decimal_places=2)
     stock: int
@@ -62,7 +63,7 @@ class ProductSummarySchema(BaseSchema):
     slug: str
     thumbnail: str
     brand: "BrandSchema"
-    category: "CategorySchema"
+    category: "CategorySummarySchema"
 class CategorySummarySchema(BaseSchema):
     """Used inside ProductVariant"""
     id: int
@@ -110,7 +111,7 @@ class ProductVariantListResponse(BaseSchema):
     variants: list[ProductVariantSchema]
     
 class CategoryListResponse(BaseSchema):
-    categories: list[CategorySchema]
+    categories: list[CategorySummarySchema]
     
 class BrandListResponse(BaseSchema):
     brands: list[BrandSchema]
