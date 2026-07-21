@@ -7,6 +7,7 @@ class BaseSchema(BaseModel):
     
 class CartItemCreate(BaseSchema):
     variant_id: int
+    slug: str
     quantity: int = 1
     
 class CartProductSnippet(BaseSchema):

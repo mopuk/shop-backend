@@ -6,7 +6,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import Annotated
 from app.models.user import UserModel
-from app.schemas.user import TokenData, Token, UserCreate, UserResponse
+from app.models.cart import CartModel
+from app.schemas.user import TokenData, Token, UserCreateSchema, UserResponseSchema
 from app.database import get_db
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -112,7 +113,7 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: 
     return Token(access_token=access_token, token_type="bearer")
  
 @router.post("/register")
-async def register(user_data: UserCreate, db: Annotated[AsyncSession, Depends(get_db)]):
+async def register(user_data: UserCreateSchema, db: Annotated[AsyncSession, Depends(get_db)]):
     username = user_data.username
     password = user_data.password
     email = user_data.email
@@ -140,6 +141,7 @@ async def register(user_data: UserCreate, db: Annotated[AsyncSession, Depends(ge
         is_active=True,
         role="customer"
     )
+    new_user.cart = CartModel()
     try:
         db.add(new_user)
         await db.commit()
@@ -156,6 +158,6 @@ async def register(user_data: UserCreate, db: Annotated[AsyncSession, Depends(ge
         )
     return Token(access_token=access_token, token_type="bearer")
     
-@router.get("/me", response_model=UserResponse)
+@router.get("/me", response_model=UserResponseSchema)
 async def get_me(current_user: Annotated[UserModel, Depends(get_current_active_user)]):
     return current_user

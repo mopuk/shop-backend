@@ -1,10 +1,12 @@
 import os
+import asyncio
 import logging
 from logging.config import fileConfig
 
 from dotenv import load_dotenv
 from alembic import context
-from sqlalchemy import engine_from_config, pool
+from sqlalchemy import pool
+from sqlalchemy.ext.asyncio import async_engine_from_config
 
 load_dotenv(os.path.join(os.path.dirname(__file__), '../app/.env'))
 
@@ -28,21 +30,28 @@ def run_migrations_offline():
     with context.begin_transaction():
         context.run_migrations()
 
-def run_migrations_online():
+def do_run_migrations(connection):
+    context.configure(connection=connection, target_metadata=target_metadata)
+    with context.begin_transaction():
+        context.run_migrations()
+
+async def run_async_migrations():
     config_section = config.get_section(config.config_ini_section)
     config_section["sqlalchemy.url"] = get_url()
 
-    connectable = engine_from_config(
+    connectable = async_engine_from_config(
         config_section,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
 
-    with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
+    async with connectable.connect() as connection:
+        await connection.run_sync(do_run_migrations)
 
-        with context.begin_transaction():
-            context.run_migrations()
+    await connectable.dispose()
+
+def run_migrations_online():
+    asyncio.run(run_async_migrations())
 
 if context.is_offline_mode():
     run_migrations_offline()

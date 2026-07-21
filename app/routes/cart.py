@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 
 from typing import Annotated
 from fastapi import Depends, APIRouter, HTTPException
@@ -151,4 +149,3 @@ async def delete_item(
     await db.delete(existing_item)
     await db.commit()
     return await get_or_create_cart_with_items(current_user.id, db)
->>>>>>> Stashed changes
