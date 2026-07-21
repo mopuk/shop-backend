@@ -31,16 +31,23 @@ async def get_or_create_cart_with_items(
     db: AsyncSession,
 ) -> CartModel:
     """Returnes a cart with items loaded instead of relying on db.refresh()"""
+    
     cart = await db.scalar(
         select(CartModel)
         .where(CartModel.user_id == user_id)
         .options(CART_ITEMS_OPTIONS)
+        .execution_options(populate_existing=True)
     )
-    
     if cart is None:
         cart = CartModel(user_id=user_id)
         db.add(cart)
         await db.flush()
+        
+        cart = await db.scalar(
+            select(CartModel)
+            .where(CartModel.user_id == user_id)
+            .options(CART_ITEMS_OPTIONS)
+        )
         
     return cart
 
@@ -86,7 +93,7 @@ async def add_item(
 ):
     if item.quantity < 1:
         raise HTTPException(422, "Quantity must be at least 1")
-    
+        
     variant = await get_variant(item.variant_id, db)
     cart = await get_or_create_cart_with_items(current_user.id, db)
     existing_item = find_cart_item(cart, variant.id)
@@ -105,14 +112,17 @@ async def add_item(
             await db.rollback()
             existing = await get_cart_item(item.variant_id, cart.id, db)
             if existing is None:
-                raise HTTPException(500, "Unexpected error resolving cart item conflict")
+                raise HTTPException(
+                    500, 
+                    "Unexpected error resolving cart item conflict"
+                )
             existing.quantity += item.quantity
             await db.commit()
+            
     else:
         existing_item.quantity += item.quantity
-        await db.commit()
-    return await get_or_create_cart_with_items(current_user.id, db)
     
+    return await get_or_create_cart_with_items(current_user.id, db)
 
 @router.patch("/cart/items", response_model=CartResponse)
 async def change_item(
@@ -140,6 +150,7 @@ async def delete_item(
     current_user: Annotated[UserModel, Depends(get_current_active_user)], 
     db: Annotated[AsyncSession, Depends(get_db)]
 ):
+    
     cart = await get_or_create_cart_with_items(current_user.id, db)
     existing_item = find_cart_item(cart, variant_id)
 

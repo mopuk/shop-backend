@@ -108,10 +108,12 @@ async def get_product(product_slug: str, db: Annotated[AsyncSession, Depends(get
         smtm = select(ProductModel).options(
                 selectinload(ProductModel.variants).options(
                     selectinload(ProductVariantModel.images),
-                     joinedload(ProductVariantModel.color),
+                    joinedload(ProductVariantModel.color),
                     joinedload(ProductVariantModel.material),
                     joinedload(ProductVariantModel.size),
-                )
+                ),
+                selectinload(ProductModel.category),
+                selectinload(ProductModel.brand),
             ).where(ProductModel.slug == product_slug)
         result = await db.execute(smtm)
         product = result.scalar_one_or_none()

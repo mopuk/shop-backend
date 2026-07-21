@@ -70,7 +70,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: An
         raise HTTPException(404, "User not found")
     return user
     
-def get_current_active_user(current_user: Annotated[UserModel, Depends(get_current_user)]):
+async def get_current_active_user(current_user: Annotated[UserModel, Depends(get_current_user)]):
     if not current_user.is_active:
         raise HTTPException(status_code=403, detail="Inactive user")
     return current_user
