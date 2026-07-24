@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 
 engine = create_async_engine(
-    os.getenv("DATABASE_URI") or "postgresql+asyncpg://mopuk:moriktop8@localhost:5432/shop_db"
+    os.getenv("DATABASE_URI")
 )
 AsyncSessionLocal = async_sessionmaker(bind=engine,  expire_on_commit=False)
 

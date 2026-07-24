@@ -96,7 +96,7 @@ async def add_item(
         
     variant = await get_variant(item.variant_id, db)
     cart = await get_or_create_cart_with_items(current_user.id, db)
-    existing_item = find_cart_item(cart, variant.id)
+    existing_item: CartItemModel | None = find_cart_item(cart, variant.id)
     
     if existing_item is None:
         new_item = CartItemModel(
@@ -116,11 +116,13 @@ async def add_item(
                     500, 
                     "Unexpected error resolving cart item conflict"
                 )
+                
             existing.quantity += item.quantity
             await db.commit()
             
     else:
         existing_item.quantity += item.quantity
+        await db.commit()
     
     return await get_or_create_cart_with_items(current_user.id, db)
 
