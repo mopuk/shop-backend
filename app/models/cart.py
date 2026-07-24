@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from app.models.user import UserModel
-    from app.models.product import ProductModel
+    from app.models.product import ProductVariantModel
 
 class CartModel(Base):
     __tablename__ = "carts"
@@ -31,7 +31,7 @@ class CartItemModel(Base):
     price_at_addition: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
     
     cart: Mapped["CartModel"] = relationship("CartModel", back_populates="items")
-    variant: Mapped["ProductModel"] = relationship("ProductVariantModel")
+    variant: Mapped["ProductVariantModel"] = relationship("ProductVariantModel")
     
     __table_args__ = (
         UniqueConstraint('cart_id', 'variant_id', name='uq_cart_item'),

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 
 def generate_order_number():
-    return f"ORD-{uuid4.hex[:8].upper()}"
+    return f"ORD-{uuid4().hex[:8].upper()}"
 
 class OrderModel(Base):
     __tablename__ = "orders"
