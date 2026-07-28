@@ -1,20 +1,25 @@
-import jwt
+from datetime import datetime, timedelta, timezone
+from typing import Annotated
 
-from datetime import timedelta, datetime, timezone
-from app.config import config
+import jwt
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from typing import Annotated
-from app.models.user import UserModel
-from app.models.cart import CartModel
-from app.schemas.user import TokenData, Token, UserCreateSchema, UserResponseSchema
-from app.database import get_db
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import IntegrityError
 from pydantic import EmailStr
-from app.security import DUMMY_HASH, verify_password, get_password_hash, check_requirements_for_password
+from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.config import config
+from app.database import get_db
+from app.models.cart import CartModel
+from app.models.user import UserModel
+from app.schemas.user import Token, TokenData, UserCreateSchema, UserResponseSchema
+from app.security import (
+    DUMMY_HASH,
+    check_requirements_for_password,
+    get_password_hash,
+    verify_password,
+)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
@@ -48,7 +53,7 @@ async def get_user(field: str | int | EmailStr, db: AsyncSession):
         return await get_user_by_username(field, db)
     if isinstance(field, int):
         return await get_user_by_id(field, db)
-    
+
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Annotated[AsyncSession, Depends(get_db)]):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -63,13 +68,13 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: An
         token_data = TokenData(user_id=int(user_id_str))
     except jwt.InvalidTokenError as exc:
         raise credentials_exception from exc
-    
+
     user = await get_user(token_data.user_id, db=db)
-    
+
     if not user:
         raise HTTPException(404, "User not found")
     return user
-    
+
 async def get_current_active_user(current_user: Annotated[UserModel, Depends(get_current_user)]):
     if not current_user.is_active:
         raise HTTPException(status_code=403, detail="Inactive user")
@@ -87,7 +92,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 async def authenticate_user(username: str, password: str, db: AsyncSession):
     user = await get_user(username, db)
-    
+
     if not user:
         verify_password(password, DUMMY_HASH)
         return False
@@ -98,20 +103,20 @@ async def authenticate_user(username: str, password: str, db: AsyncSession):
 @router.post("/login")
 async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Annotated[AsyncSession, Depends(get_db)]):
     user = await authenticate_user(username=form_data.username, password=form_data.password, db=db)
-    
+
     if not user:
         raise HTTPException(
             status_code=401,
             detail="Invalid credentials",
             headers={"WWW-Authenticate": "Bearer"}
         )
-        
+
     access_token_expires = timedelta(minutes=int(config.JWT_ACCESS_TOKEN_EXPIRE_MINUTES))
     access_token = create_access_token(
         data={"sub": str(user.id)}, expires_delta=access_token_expires
     )
     return Token(access_token=access_token, token_type="bearer")
- 
+
 @router.post("/register")
 async def register(user_data: UserCreateSchema, db: Annotated[AsyncSession, Depends(get_db)]):
     username = user_data.username
@@ -133,7 +138,7 @@ async def register(user_data: UserCreateSchema, db: Annotated[AsyncSession, Depe
             409, "Email already registered"
         )
     hashed_password = get_password_hash(password)
-    
+
     new_user = UserModel(
         username=username,
         email=email,
@@ -151,13 +156,13 @@ async def register(user_data: UserCreateSchema, db: Annotated[AsyncSession, Depe
         raise HTTPException(
             409, "Username or email already exist"
         )
-    
+
     access_token = create_access_token(
-        data={"sub": str(new_user.id)}, 
+        data={"sub": str(new_user.id)},
         expires_delta=timedelta(minutes=int(config.JWT_ACCESS_TOKEN_EXPIRE_MINUTES))
         )
     return Token(access_token=access_token, token_type="bearer")
-    
+
 @router.get("/me", response_model=UserResponseSchema)
 async def get_me(current_user: Annotated[UserModel, Depends(get_current_active_user)]):
     return current_user

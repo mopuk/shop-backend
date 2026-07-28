@@ -3,12 +3,13 @@ from __future__ import annotations
 
 from datetime import datetime
 from decimal import Decimal
-from typing import Annotated, Literal
+from typing import Annotated
 
 from fastapi import Query
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl, StringConstraints
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints
 
 from app.enums import TargetGroup
+
 
 class BaseSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -69,7 +70,7 @@ class CategorySummarySchema(BaseSchema):
     id: int
     name: str
     slug: str
-    
+
 class ProductSizeSchema(BaseSchema):
     id: int
     name: Annotated[str, Query(max_length=40)]
@@ -88,7 +89,7 @@ class ProductMaterialSchema(BaseSchema):
 
 class ProductImageSchema(BaseSchema):
     id: int
-    url: HttpUrl
+    url: str
     alt_text: Annotated[str, Query(max_length=100)]
     sort_order: int
     variant_id: int
@@ -106,16 +107,16 @@ class BrandSchema(BaseSchema):
     id: int
     name: Annotated[str, Query(max_length=40)]
     slug: Annotated[str, Query(max_length=255)]
-    
+
 class ProductVariantListResponse(BaseSchema):
     variants: list[ProductVariantSchema]
-    
+
 class CategoryListResponse(BaseSchema):
     categories: list[CategorySummarySchema]
-    
+
 class BrandListResponse(BaseSchema):
     brands: list[BrandSchema]
-    
+
 class FiltersListResponse(BaseSchema):
     sizes: list[ProductSizeSchema]
     materials: list[ProductMaterialSchema]

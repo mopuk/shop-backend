@@ -14,6 +14,4 @@ def check_requirements_for_password(password: str):
         return False
     if not any(char.isdigit() for char in password):
         return False
-    if not any(char in "!@#$%^&*_" for char in password):
-        return False
-    return True
+    return any(char in "!@#$%^&*_" for char in password)

@@ -1,8 +1,9 @@
+from fastapi import APIRouter
+
 from .auth import router as auth_router
-from .products import router as products_router
 from .cart import router as cart_router
 from .orders import router as orders_router
-from fastapi import APIRouter
+from .products import router as products_router
 
 router = APIRouter()
 router.include_router(auth_router)
