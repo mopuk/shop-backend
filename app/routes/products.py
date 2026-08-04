@@ -107,11 +107,16 @@ async def get_filters(db: Annotated[AsyncSession, Depends(get_db)]):
         .join(ProductVariantModel)
         .distinct()
         )
-
+    brands = await db.scalars(
+        select(BrandModel)
+        .join(ProductVariantModel)
+        .distinct()
+    )
     return {
         "sizes": sizes.all(),
         "colors": colors.all(),
         "materials": materials.all(),
+        "brands": brands.all(),
     }
 
 
