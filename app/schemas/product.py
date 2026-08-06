@@ -121,3 +121,4 @@ class FiltersListResponse(BaseSchema):
     sizes: list[ProductSizeSchema]
     materials: list[ProductMaterialSchema]
     colors: list[ProductColorSchema]
+    brands: list[BrandSchema]

@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -34,11 +34,11 @@ router = APIRouter(
 async def get_products(
         db: Annotated[AsyncSession, Depends(get_db)],
         featured: bool = False,
-        category: str | None = None,
-        brand: str | None = None,
-        size: str | None = None,
-        material: str | None = None,
-        color: str | None = None,
+        categories: Annotated[list[str] | None, Query()] = None,
+        brands: Annotated[list[str] | None, Query()] = None,
+        sizes: Annotated[list[str] | None, Query()] = None,
+        materials: Annotated[list[str] | None, Query()] = None,
+        colors: Annotated[list[str] | None, Query()] = None,
     ):
 
     smtm = select(ProductVariantModel).options(
@@ -59,29 +59,29 @@ async def get_products(
                 )
             )
 
-    if category:
+    if categories:
         smtm = smtm.where(
             ProductVariantModel.product.has(
-                ProductModel.category.has(CategoryModel.slug == category)
+                ProductModel.category.has(CategoryModel.slug.in_(categories))
                 )
             )
-    if brand:
+    if brands:
         smtm = smtm.where(
             ProductVariantModel.product.has(
-                ProductModel.brand.has(BrandModel.slug == brand)
+                ProductModel.brand.has(BrandModel.slug.in_(brands))
                 )
             )
-    if size:
+    if sizes:
         smtm = smtm.where(
-            ProductVariantModel.size.has(ProductSizeModel.name == size)
+            ProductVariantModel.size.has(ProductSizeModel.name.in_(sizes))
             )
-    if material:
+    if materials:
         smtm = smtm.where(
-            ProductVariantModel.material.has(ProductMaterialModel.slug == material)
+            ProductVariantModel.material.has(ProductMaterialModel.slug.in_(materials))
             )
-    if color:
+    if colors:
         smtm = smtm.where(
-            ProductVariantModel.color.has(ProductColorModel.slug == color)
+            ProductVariantModel.color.has(ProductColorModel.slug.in_(colors))
             )
 
     variants = await db.scalars(smtm)
@@ -109,7 +109,7 @@ async def get_filters(db: Annotated[AsyncSession, Depends(get_db)]):
         )
     brands = await db.scalars(
         select(BrandModel)
-        .join(ProductVariantModel)
+        .join(ProductModel)
         .distinct()
     )
     return {
