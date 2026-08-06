@@ -1,7 +1,7 @@
 from datetime import datetime
 from decimal import Decimal
 
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class BaseSchema(BaseModel):
@@ -14,7 +14,7 @@ class CartItemCreate(BaseSchema):
 class CartVariantSnippet(BaseModel):
     id: int
     price: Decimal = Field(alias="variant_price")
-    thumbnail: HttpUrl | None
+    thumbnail: str | None
 
     model_config = ConfigDict(from_attributes=True, populate_by_name=True)
 
