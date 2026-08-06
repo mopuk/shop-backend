@@ -12,8 +12,4 @@ COPY ./static /code/static
 COPY ./alembic.ini /code/alembic.ini
 COPY ./migrations /code/migrations
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 CMD ["fastapi", "run", "app/app.py", "--port", "8000"]

@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-
+from pathlib import Path
 load_dotenv()
 
 from fastapi import FastAPI
@@ -19,5 +19,7 @@ app.add_middleware(
     allow_headers=config.ALLOW_HEADERS,
 )
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 app.include_router(api_router)
