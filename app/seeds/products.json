@@ -8,7 +8,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 12990.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -20,7 +20,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 11500.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Nike"
   },
   {
@@ -32,7 +32,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 13900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -44,7 +44,7 @@
     "is_featured": false,
     "gender": "women",
     "base_price": 15490.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -56,7 +56,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 12000.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Nike"
   },
   {
@@ -68,7 +68,7 @@
     "is_featured": true,
     "gender": "men",
     "base_price": 24900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -80,7 +80,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 9990.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Nike"
   },
   {
@@ -92,7 +92,7 @@
     "is_featured": false,
     "gender": "women",
     "base_price": 14990.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -104,7 +104,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 7500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -116,7 +116,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 13500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -128,7 +128,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 14500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -140,7 +140,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 18900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -152,7 +152,7 @@
     "is_featured": false,
     "gender": "women",
     "base_price": 8990.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -164,7 +164,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 11900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -176,7 +176,7 @@
     "is_featured": false,
     "gender": "women",
     "base_price": 9500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -188,7 +188,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 7200.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -200,7 +200,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 16990.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Nike"
   },
   {
@@ -212,7 +212,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 17990.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Adidas"
   },
   {
@@ -224,7 +224,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 9990.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Adidas"
   },
   {
@@ -236,7 +236,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 10500.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Adidas"
   },
   {
@@ -248,7 +248,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 13990.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Adidas"
   },
   {
@@ -260,7 +260,7 @@
     "is_featured": false,
     "gender": "women",
     "base_price": 10990.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Adidas"
   },
   {
@@ -272,7 +272,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 11990.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Adidas"
   },
   {
@@ -284,7 +284,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 11500.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Adidas"
   },
   {
@@ -296,7 +296,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 12500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Adidas"
   },
   {
@@ -308,7 +308,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 15990.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Adidas"
   },
   {
@@ -320,7 +320,7 @@
     "is_featured": false,
     "gender": "women",
     "base_price": 7500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Adidas"
   },
   {
@@ -332,7 +332,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 7200.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Adidas"
   },
   {
@@ -344,7 +344,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 14500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Adidas"
   },
   {
@@ -356,7 +356,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 16900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Adidas"
   },
   {
@@ -368,7 +368,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 13990.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Adidas"
   },
   {
@@ -380,7 +380,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 11990.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Puma"
   },
   {
@@ -392,7 +392,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 8990.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Puma"
   },
   {
@@ -404,7 +404,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 12500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Puma"
   },
   {
@@ -416,7 +416,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 16990.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Puma"
   },
   {
@@ -428,7 +428,7 @@
     "is_featured": false,
     "gender": "women",
     "base_price": 7990.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Puma"
   },
   {
@@ -440,7 +440,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 7500.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Puma"
   },
   {
@@ -452,7 +452,7 @@
     "is_featured": true,
     "gender": "women",
     "base_price": 10990.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Puma"
   },
   {
@@ -464,7 +464,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 14500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Puma"
   },
   {
@@ -476,7 +476,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 7800.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Puma"
   },
   {
@@ -488,7 +488,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 7200.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Puma"
   },
   {
@@ -500,7 +500,7 @@
     "is_featured": true,
     "gender": "men",
     "base_price": 18500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Asics"
   },
   {
@@ -512,7 +512,7 @@
     "is_featured": true,
     "gender": "women",
     "base_price": 19500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Asics"
   },
   {
@@ -524,7 +524,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 14900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Asics"
   },
   {
@@ -536,7 +536,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 13500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Asics"
   },
   {
@@ -548,7 +548,7 @@
     "is_featured": false,
     "gender": "women",
     "base_price": 12900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Asics"
   },
   {
@@ -560,7 +560,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 24500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Asics"
   },
   {
@@ -572,7 +572,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 13900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Asics"
   },
   {
@@ -584,7 +584,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 8500.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Asics"
   },
   {
@@ -596,7 +596,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 11500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "New Balance"
   },
   {
@@ -608,7 +608,7 @@
     "is_featured": true,
     "gender": "women",
     "base_price": 12900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "New Balance"
   },
   {
@@ -620,7 +620,7 @@
     "is_featured": true,
     "gender": "men",
     "base_price": 16500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "New Balance"
   },
   {
@@ -632,7 +632,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 24900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "New Balance"
   },
   {
@@ -644,7 +644,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 14900.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "New Balance"
   },
   {
@@ -656,7 +656,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 17900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "New Balance"
   },
   {
@@ -668,7 +668,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 10500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "New Balance"
   },
   {
@@ -680,7 +680,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 13500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "New Balance"
   },
   {
@@ -692,7 +692,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 17500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "New Balance"
   },
   {
@@ -704,7 +704,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 15900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "New Balance"
   },
   {
@@ -716,7 +716,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 9500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Reebok"
   },
   {
@@ -728,7 +728,7 @@
     "is_featured": true,
     "gender": "unisex",
     "base_price": 8900.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Reebok"
   },
   {
@@ -740,7 +740,7 @@
     "is_featured": true,
     "gender": "men",
     "base_price": 12900.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Reebok"
   },
   {
@@ -752,7 +752,7 @@
     "is_featured": false,
     "gender": "unisex",
     "base_price": 11500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Reebok"
   },
   {
@@ -764,7 +764,7 @@
     "is_featured": false,
     "gender": "women",
     "base_price": 10500.0,
-    "category": "sneakers",
+    "category": "Кроссовки",
     "brand": "Reebok"
   },
   {
@@ -776,7 +776,7 @@
     "is_featured": false,
     "gender": "men",
     "base_price": 8500.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Reebok"
   },
   {
@@ -788,7 +788,7 @@
     "is_featured": false,
     "gender": "women",
     "base_price": 9500.0,
-    "category": "keds",
+    "category": "Кеды",
     "brand": "Reebok"
   }
 ]
