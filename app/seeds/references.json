@@ -1,0 +1,115 @@
+{
+  "sizes": [
+    {
+      "name": "38",
+      "sort_order": 10
+    },
+    {
+      "name": "39",
+      "sort_order": 20
+    },
+    {
+      "name": "40",
+      "sort_order": 30
+    },
+    {
+      "name": "41",
+      "sort_order": 40
+    },
+    {
+      "name": "42",
+      "sort_order": 50
+    },
+    {
+      "name": "43",
+      "sort_order": 60
+    },
+    {
+      "name": "44",
+      "sort_order": 70
+    },
+    {
+      "name": "45",
+      "sort_order": 80
+    }
+  ],
+  "colors": [
+    {
+      "name": "Красный",
+      "hex_code": "#FF0000",
+      "slug": "red"
+    },
+    {
+      "name": "Золотистый",
+      "hex_code": "#FFD700",
+      "slug": "gold"
+    },
+    {
+      "name": "Мультиколор",
+      "hex_code": "#FFFFFF",
+      "slug": "multicolor"
+    }
+  ],
+  "materials": [
+    {
+      "name": "Кожа",
+      "slug": "leather"
+    },
+    {
+      "name": "Замша",
+      "slug": "suede"
+    },
+    {
+      "name": "Сетка",
+      "slug": "mesh"
+    },
+    {
+      "name": "Текстиль",
+      "slug": "textile"
+    },
+    {
+      "name": "Нейлон",
+      "slug": "nylon"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Кроссовки",
+      "slug": "sneakers",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Кеды",
+      "slug": "keds",
+      "parent_id": null,
+      "image_url": null
+    }
+  ],
+  "brands": [
+    {
+      "name": "Nike",
+      "slug": "nike"
+    },
+    {
+      "name": "Adidas",
+      "slug": "adidas"
+    },
+    {
+      "name": "Puma",
+      "slug": "puma"
+    },
+    {
+      "name": "Asics",
+      "slug": "asics"
+    },
+    {
+      "name": "New Balance",
+      "slug": "new-balance"
+    },
+    {
+      "name": "Reebok",
+      "slug": "reebok"
+    }
+  ]
+}
