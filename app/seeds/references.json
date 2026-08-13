@@ -35,9 +35,14 @@
   ],
   "colors": [
     {
-      "name": "Красный",
-      "hex_code": "#FF0000",
-      "slug": "red"
+      "name": "Белый",
+      "hex_code": "#FFFFFF",
+      "slug": "white"
+    },
+    {
+      "name": "Черный",
+      "hex_code": "#000000",
+      "slug": "black"
     },
     {
       "name": "Золотистый",
@@ -48,6 +53,11 @@
       "name": "Мультиколор",
       "hex_code": "#FFFFFF",
       "slug": "multicolor"
+    },
+    {
+      "name": "Красный",
+      "hex_code": "#FF0000",
+      "slug": "red"
     }
   ],
   "materials": [
@@ -70,6 +80,10 @@
     {
       "name": "Нейлон",
       "slug": "nylon"
+    },
+    {
+      "name": "Синтетика",
+      "slug": "synthetic"
     }
   ],
   "categories": [
