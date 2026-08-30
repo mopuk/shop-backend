@@ -1,30 +1,25 @@
-import os
 from dotenv import load_dotenv
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
-from app.routes import router as api_router
-
+from pathlib import Path
 load_dotenv()
 
-origins = [
-    "http://localhost:3000",
-]
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+
+from app.config import config
+from app.routes import router as api_router
 
 app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
-    allow_headers=[
-        "Content-Type",
-        "Authorization",
-        "Accept",
-        "X-Requested-With",
-        "Idempotency-Key"
-    ],
-    )
-app.mount("/static", StaticFiles(directory="static"), name="static")
-app.include_router(api_router)
+    allow_origins=config.ALLOW_ORIGINS,
+    allow_credentials=config.ALLOW_CREDENTIALS,
+    allow_methods=config.ALLOW_METHODS,
+    allow_headers=config.ALLOW_HEADERS,
+)
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
+app.include_router(api_router)

@@ -1,0 +1,159 @@
+{
+  "sizes": [
+    {
+      "name": "38",
+      "sort_order": 10
+    },
+    {
+      "name": "39",
+      "sort_order": 20
+    },
+    {
+      "name": "40",
+      "sort_order": 30
+    },
+    {
+      "name": "41",
+      "sort_order": 40
+    },
+    {
+      "name": "42",
+      "sort_order": 50
+    },
+    {
+      "name": "43",
+      "sort_order": 60
+    },
+    {
+      "name": "44",
+      "sort_order": 70
+    },
+    {
+      "name": "45",
+      "sort_order": 80
+    }
+  ],
+  "colors": [
+    {
+      "name": "Белый",
+      "hex_code": "#FFFFFF",
+      "slug": "white"
+    },
+    {
+      "name": "Черный",
+      "hex_code": "#000000",
+      "slug": "black"
+    },
+    {
+      "name": "Золотистый",
+      "hex_code": "#FFD700",
+      "slug": "gold"
+    },
+    {
+      "name": "Мультиколор",
+      "hex_code": "#FFFFFF",
+      "slug": "multicolor"
+    },
+    {
+      "name": "Красный",
+      "hex_code": "#FF0000",
+      "slug": "red"
+    }
+  ],
+  "materials": [
+    {
+      "name": "Кожа",
+      "slug": "leather"
+    },
+    {
+      "name": "Замша",
+      "slug": "suede"
+    },
+    {
+      "name": "Сетка",
+      "slug": "mesh"
+    },
+    {
+      "name": "Текстиль",
+      "slug": "textile"
+    },
+    {
+      "name": "Нейлон",
+      "slug": "nylon"
+    },
+    {
+      "name": "Синтетика",
+      "slug": "synthetic"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Кроссовки",
+      "slug": "sneakers",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Кеды",
+      "slug": "keds",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Ботинки",
+      "slug": "boots",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Сланцы",
+      "slug": "flip_flops",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Лоферы",
+      "slug": "loafers",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Сандалии",
+      "slug": "sandals",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Бутсы",
+      "slug": "soccer_shoes",
+      "parent_id": null,
+      "image_url": null
+    }
+  ],
+  "brands": [
+    {
+      "name": "Nike",
+      "slug": "nike"
+    },
+    {
+      "name": "Adidas",
+      "slug": "adidas"
+    },
+    {
+      "name": "Puma",
+      "slug": "puma"
+    },
+    {
+      "name": "Asics",
+      "slug": "asics"
+    },
+    {
+      "name": "New Balance",
+      "slug": "new-balance"
+    },
+    {
+      "name": "Reebok",
+      "slug": "reebok"
+    }
+  ]
+}

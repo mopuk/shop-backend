@@ -11,7 +11,7 @@ install: venv
 	$(PIP) install -r requirements.txt
 
 dev:
-	@echo "Starting development server..."
+	@echo "Starting production-ready Gunicorn server..."
 	@if [ -d "$(VENV)" ]; then \
 		$(PYTHON) -m fastapi dev; \
 	else \
