@@ -1,5 +1,9 @@
 services:
   postgres_db:
+    networks:
+      default:
+        aliases:
+          - postgres_db
     image: postgres:17-alpine
     container_name: shop_postgres
     restart: always
@@ -18,12 +22,19 @@ services:
     environment:
       DATABASE_URI: "postgresql+asyncpg://local_user:local_password@postgres_db:5432/shop_db"
       ORIGINS: "http://localhost:3000"
-      JWT_SECRET_KEY:  "b9ee58e91fa4808ac30b5dc73318319942d1980a99eb07a167368a1ab455a087"
+      JWT_SECRET_KEY: "b9ee58e91fa4808ac30b5dc73318319942d1980a99eb07a167368a1ab455a087"
       JWT_ALGORITHM: "HS256"
       JWT_ACCESS_TOKEN_EXPIRE_MINUTES: 600
+      UNSPLASH_ACCESS_KEY: "H-rVzcg3zQzDe8ovYGoK3UC7MRuUaZU5lHZIxegSas8"
     ports:
       - "8000:8000"
     depends_on:
       - postgres_db
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
 volumes:
   postgres_data:
