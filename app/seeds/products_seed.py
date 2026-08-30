@@ -20,15 +20,6 @@ products_data = load_json(PRODUCTS_FILE)
 async def seed_products():
 
     async with AsyncSessionLocal() as session:
-        category_slugs = {"Кроссовки": "sneakers", "Кеды": "keds"}
-        brand_slugs = {
-            "Nike": "nike",
-            "Adidas": "adidas",
-            "Puma": "puma",
-            "Asics": "asics",
-            "New Balance": "new-balance",
-            "Reebok": "reebok",
-        }
         categories = select(CategoryModel)
         categories = {
             category.slug.lower(): category.id
@@ -49,8 +40,10 @@ async def seed_products():
                 "tags": item.get("tags"),
                 "gender": item.get("gender"),
                 "base_price": item.get("base_price"),
-                "category_id": categories.get(category_slugs[item["category"]]),
-                "brand_id": brands.get(brand_slugs[item["brand"]]),
+                "category_id": categories.get(
+                    "-".join(item["category"].lower().split(" "))
+                ),
+                "brand_id": brands.get("-".join(item["brand"].lower().split(" "))),
                 "slug": item.get("slug"),
                 "is_featured": False,
                 "thumbnail": "",

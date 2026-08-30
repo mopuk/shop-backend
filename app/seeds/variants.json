@@ -1,205 +1,7 @@
 [
   {
-    "product_slug": "nike-air-max-pulse",
-    "variant_price": 12990.0,
-    "stock": 45,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "textile",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "nike-air-force-1-07",
-    "variant_price": 11500.0,
-    "stock": 120,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "nike-air-zoom-pegasus-40",
-    "variant_price": 13900.0,
-    "stock": 80,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "textile",
-    "size_name": "40"
-  },
-  {
-    "product_slug": "nike-react-infinity-3",
-    "variant_price": 15490.0,
-    "stock": 35,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "mesh",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "nike-dunk-low",
-    "variant_price": 12000.0,
-    "stock": 200,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "43"
-  },
-  {
-    "product_slug": "nike-zoomx-vaporfly-next-2",
-    "variant_price": 24900.0,
-    "stock": 15,
-    "is_available": true,
-    "color_slug": "red",
-    "material_slug": "textile",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "nike-blazer-mid-77-vintage",
-    "variant_price": 9990.0,
-    "stock": 60,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "nike-air-max-270",
-    "variant_price": 14990.0,
-    "stock": 40,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "textile",
-    "size_name": "40"
-  },
-  {
-    "product_slug": "nike-revolution-6",
-    "variant_price": 7500.0,
-    "stock": 150,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "mesh",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "nike-air-huarache",
-    "variant_price": 13500.0,
-    "stock": 25,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "synthetic",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "nike-air-max-90",
-    "variant_price": 14500.0,
-    "stock": 85,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "43"
-  },
-  {
-    "product_slug": "nike-invincible-run-3",
-    "variant_price": 18900.0,
-    "stock": 30,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "textile",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "nike-cortez",
-    "variant_price": 8990.0,
-    "stock": 110,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "40"
-  },
-  {
-    "product_slug": "nike-structure-24",
-    "variant_price": 11900.0,
-    "stock": 50,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "mesh",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "nike-winflo-9",
-    "variant_price": 9500.0,
-    "stock": 75,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "textile",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "nike-downshifter-12",
-    "variant_price": 7200.0,
-    "stock": 200,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "mesh",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "nike-zoom-fly-5",
-    "variant_price": 16990.0,
-    "stock": 20,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "textile",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "adidas-ultraboost-22",
-    "variant_price": 17990.0,
-    "stock": 45,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "mesh",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "adidas-stan-smith",
-    "variant_price": 9990.0,
-    "stock": 300,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "adidas-superstar",
-    "variant_price": 10500.0,
-    "stock": 180,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "43"
-  },
-  {
-    "product_slug": "adidas-nmd-r1",
-    "variant_price": 13990.0,
-    "stock": 60,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "mesh",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "adidas-gazelle",
-    "variant_price": 10990.0,
-    "stock": 90,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "suede",
-    "size_name": "40"
-  },
-  {
-    "product_slug": "adidas-samba-og",
-    "variant_price": 11990.0,
+    "product_slug": "nike-manoa-leather",
+    "variant_price": 12500.0,
     "stock": 140,
     "is_available": true,
     "color_slug": "black",
@@ -207,390 +9,444 @@
     "size_name": "42"
   },
   {
-    "product_slug": "adidas-forum-low",
-    "variant_price": 11500.0,
-    "stock": 85,
+    "product_slug": "nike-lunar-force-1-duckboot",
+    "variant_price": 17900.0,
+    "stock": 50,
     "is_available": true,
     "color_slug": "black",
     "material_slug": "leather",
     "size_name": "43"
   },
   {
-    "product_slug": "adidas-ozelia",
-    "variant_price": 12500.0,
-    "stock": 40,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "textile",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "adidas-adizero-boston-11",
-    "variant_price": 15990.0,
-    "stock": 25,
-    "is_available": true,
-    "color_slug": "red",
-    "material_slug": "textile",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "adidas-duramo-10",
-    "variant_price": 7500.0,
-    "stock": 110,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "mesh",
-    "size_name": "40"
-  },
-  {
-    "product_slug": "adidas-runfalcon-3-0",
-    "variant_price": 7200.0,
-    "stock": 160,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "mesh",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "adidas-solar-glide-5",
-    "variant_price": 14500.0,
-    "stock": 50,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "mesh",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "adidas-terrex-swift-r3",
-    "variant_price": 16900.0,
+    "product_slug": "adidas-terrex-free-hiker",
+    "variant_price": 19990.0,
     "stock": 35,
     "is_available": true,
     "color_slug": "white",
+    "material_slug": "textile",
+    "size_name": "41"
+  },
+  {
+    "product_slug": "adidas-gsg-9-2",
+    "variant_price": 16500.0,
+    "stock": 80,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "leather",
+    "size_name": "44"
+  },
+  {
+    "product_slug": "puma-desierto-v2",
+    "variant_price": 9990.0,
+    "stock": 200,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "suede",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "puma-tarrenz-sb",
+    "variant_price": 10500.0,
+    "stock": 120,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "leather",
+    "size_name": "43"
+  },
+  {
+    "product_slug": "new-balance-niobium-concept-1",
+    "variant_price": 22000.0,
+    "stock": 20,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "synthetic",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "asics-gel-fujitrabuco-8-mt",
+    "variant_price": 13900.0,
+    "stock": 45,
+    "is_available": true,
+    "color_slug": "red",
+    "material_slug": "mesh",
+    "size_name": "41"
+  },
+  {
+    "product_slug": "nike-victori-one",
+    "variant_price": 7000.0,
+    "stock": 300,
+    "is_available": true,
+    "color_slug": "white",
+    "material_slug": "synthetic",
+    "size_name": "40"
+  },
+  {
+    "product_slug": "nike-solay-thong",
+    "variant_price": 7200.0,
+    "stock": 250,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "synthetic",
+    "size_name": "39"
+  },
+  {
+    "product_slug": "adidas-adilette-comfort-flip",
+    "variant_price": 7500.0,
+    "stock": 180,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "synthetic",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "adidas-eezay-flip-flop",
+    "variant_price": 7000.0,
+    "stock": 150,
+    "is_available": true,
+    "color_slug": "white",
+    "material_slug": "synthetic",
+    "size_name": "41"
+  },
+  {
+    "product_slug": "puma-epic-flip-v2",
+    "variant_price": 7000.0,
+    "stock": 120,
+    "is_available": true,
+    "color_slug": "red",
+    "material_slug": "textile",
+    "size_name": "40"
+  },
+  {
+    "product_slug": "puma-aqua-flip",
+    "variant_price": 7200.0,
+    "stock": 100,
+    "is_available": true,
+    "color_slug": "black",
     "material_slug": "synthetic",
     "size_name": "43"
   },
   {
-    "product_slug": "adidas-ozweego",
-    "variant_price": 13990.0,
-    "stock": 70,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "textile",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "puma-rs-x-3",
-    "variant_price": 11990.0,
-    "stock": 80,
-    "is_available": true,
-    "color_slug": "red",
-    "material_slug": "mesh",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "puma-suede-classic",
-    "variant_price": 8990.0,
-    "stock": 150,
+    "product_slug": "reebok-classic-flip",
+    "variant_price": 7500.0,
+    "stock": 90,
     "is_available": true,
     "color_slug": "white",
-    "material_slug": "suede",
+    "material_slug": "synthetic",
     "size_name": "41"
   },
   {
-    "product_slug": "puma-velocity-nitro-2",
-    "variant_price": 12500.0,
+    "product_slug": "asics-flip-flop",
+    "variant_price": 7000.0,
     "stock": 65,
     "is_available": true,
     "color_slug": "black",
-    "material_slug": "textile",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "puma-deviate-nitro-2",
-    "variant_price": 16990.0,
-    "stock": 30,
-    "is_available": true,
-    "color_slug": "red",
-    "material_slug": "textile",
+    "material_slug": "synthetic",
     "size_name": "42"
   },
   {
-    "product_slug": "puma-carina-2-0",
-    "variant_price": 7990.0,
-    "stock": 100,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "40"
-  },
-  {
-    "product_slug": "puma-smash-v2",
-    "variant_price": 7500.0,
-    "stock": 120,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "suede",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "puma-mayze",
-    "variant_price": 10990.0,
-    "stock": 55,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "40"
-  },
-  {
-    "product_slug": "puma-magnify-nitro",
-    "variant_price": 14500.0,
-    "stock": 40,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "mesh",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "puma-pacer-future",
-    "variant_price": 7800.0,
-    "stock": 95,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "mesh",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "puma-retaliate-2",
-    "variant_price": 7200.0,
-    "stock": 130,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "mesh",
-    "size_name": "43"
-  },
-  {
-    "product_slug": "asics-gel-kayano-29",
+    "product_slug": "new-balance-1906l-loafer",
     "variant_price": 18500.0,
     "stock": 25,
     "is_available": true,
     "color_slug": "white",
-    "material_slug": "textile",
+    "material_slug": "leather",
     "size_name": "42"
   },
   {
-    "product_slug": "asics-gel-nimbus-25",
-    "variant_price": 19500.0,
-    "stock": 20,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "textile",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "asics-novablast-3",
-    "variant_price": 14900.0,
-    "stock": 45,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "textile",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "asics-gt-2000-11",
-    "variant_price": 13500.0,
-    "stock": 60,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "mesh",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "asics-gel-cumulus-24",
+    "product_slug": "puma-suede-loafer",
     "variant_price": 12900.0,
-    "stock": 70,
+    "stock": 55,
     "is_available": true,
     "color_slug": "black",
-    "material_slug": "mesh",
+    "material_slug": "suede",
     "size_name": "40"
   },
   {
-    "product_slug": "asics-metaspeed-sky-plus",
-    "variant_price": 24500.0,
-    "stock": 10,
+    "product_slug": "nike-janoski-slip",
+    "variant_price": 9500.0,
+    "stock": 85,
     "is_available": true,
-    "color_slug": "red",
+    "color_slug": "black",
+    "material_slug": "suede",
+    "size_name": "41"
+  },
+  {
+    "product_slug": "adidas-stan-smith-slip-on",
+    "variant_price": 10500.0,
+    "stock": 100,
+    "is_available": true,
+    "color_slug": "white",
+    "material_slug": "leather",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "reebok-club-c-slip-on",
+    "variant_price": 8900.0,
+    "stock": 75,
+    "is_available": true,
+    "color_slug": "white",
+    "material_slug": "leather",
+    "size_name": "39"
+  },
+  {
+    "product_slug": "asics-gel-lyte-iii-slip",
+    "variant_price": 11500.0,
+    "stock": 45,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "suede",
+    "size_name": "41"
+  },
+  {
+    "product_slug": "nike-burrow",
+    "variant_price": 7500.0,
+    "stock": 130,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "textile",
+    "size_name": "40"
+  },
+  {
+    "product_slug": "puma-bari-slip-on",
+    "variant_price": 7000.0,
+    "stock": 210,
+    "is_available": true,
+    "color_slug": "white",
     "material_slug": "textile",
     "size_name": "41"
   },
   {
-    "product_slug": "asics-gel-trabuco-10",
-    "variant_price": 13900.0,
-    "stock": 40,
+    "product_slug": "nike-oneonta",
+    "variant_price": 8500.0,
+    "stock": 90,
     "is_available": true,
-    "color_slug": "white",
+    "color_slug": "red",
+    "material_slug": "nylon",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "nike-canyon-sandal",
+    "variant_price": 9990.0,
+    "stock": 70,
+    "is_available": true,
+    "color_slug": "black",
     "material_slug": "synthetic",
     "size_name": "43"
   },
   {
-    "product_slug": "asics-japan-s",
-    "variant_price": 8500.0,
-    "stock": 120,
+    "product_slug": "adidas-terrex-cyprex",
+    "variant_price": 10500.0,
+    "stock": 50,
     "is_available": true,
     "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "41"
+    "material_slug": "nylon",
+    "size_name": "42"
   },
   {
-    "product_slug": "new-balance-574-core",
-    "variant_price": 11500.0,
-    "stock": 150,
+    "product_slug": "adidas-adilette-sandal",
+    "variant_price": 7500.0,
+    "stock": 160,
     "is_available": true,
     "color_slug": "white",
+    "material_slug": "synthetic",
+    "size_name": "39"
+  },
+  {
+    "product_slug": "puma-future-rider-sandal",
+    "variant_price": 8900.0,
+    "stock": 85,
+    "is_available": true,
+    "color_slug": "multicolor",
+    "material_slug": "textile",
+    "size_name": "40"
+  },
+  {
+    "product_slug": "reebok-beatnik",
+    "variant_price": 14500.0,
+    "stock": 35,
+    "is_available": true,
+    "color_slug": "black",
     "material_slug": "suede",
     "size_name": "42"
   },
   {
-    "product_slug": "new-balance-327",
-    "variant_price": 12900.0,
+    "product_slug": "asics-bondal",
+    "variant_price": 9500.0,
     "stock": 65,
     "is_available": true,
     "color_slug": "black",
-    "material_slug": "mesh",
-    "size_name": "40"
-  },
-  {
-    "product_slug": "new-balance-2002r",
-    "variant_price": 16500.0,
-    "stock": 35,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "suede",
-    "size_name": "43"
-  },
-  {
-    "product_slug": "new-balance-990v5",
-    "variant_price": 24900.0,
-    "stock": 15,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "suede",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "new-balance-550",
-    "variant_price": 14900.0,
-    "stock": 80,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
+    "material_slug": "textile",
     "size_name": "41"
   },
   {
-    "product_slug": "new-balance-fresh-foam-1080v12",
-    "variant_price": 17900.0,
+    "product_slug": "new-balance-250-sandal",
+    "variant_price": 7900.0,
+    "stock": 110,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "nylon",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "nike-air-max-2021",
+    "variant_price": 18500.0,
+    "stock": 25,
+    "is_available": true,
+    "color_slug": "white",
+    "material_slug": "mesh",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "nike-zoom-vomero-5",
+    "variant_price": 16900.0,
     "stock": 40,
     "is_available": true,
     "color_slug": "white",
-    "material_slug": "textile",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "new-balance-530",
-    "variant_price": 10500.0,
-    "stock": 70,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "textile",
-    "size_name": "41"
-  },
-  {
-    "product_slug": "new-balance-xc-72",
-    "variant_price": 13500.0,
-    "stock": 50,
-    "is_available": true,
-    "color_slug": "white",
-    "material_slug": "suede",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "new-balance-9060",
-    "variant_price": 17500.0,
-    "stock": 30,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "textile",
-    "size_name": "43"
-  },
-  {
-    "product_slug": "new-balance-hierro-v7",
-    "variant_price": 15900.0,
-    "stock": 25,
-    "is_available": true,
-    "color_slug": "red",
     "material_slug": "mesh",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "reebok-classic-leather",
-    "variant_price": 9500.0,
-    "stock": 200,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
     "size_name": "41"
   },
   {
-    "product_slug": "reebok-club-c-85",
-    "variant_price": 8900.0,
-    "stock": 180,
-    "is_available": true,
-    "color_slug": "black",
-    "material_slug": "leather",
-    "size_name": "42"
-  },
-  {
-    "product_slug": "reebok-nano-x2",
-    "variant_price": 12900.0,
+    "product_slug": "adidas-forum-84",
+    "variant_price": 14990.0,
     "stock": 60,
     "is_available": true,
     "color_slug": "white",
-    "material_slug": "mesh",
+    "material_slug": "leather",
     "size_name": "43"
   },
   {
-    "product_slug": "reebok-zig-kinetica-2-5",
-    "variant_price": 11500.0,
-    "stock": 75,
+    "product_slug": "adidas-nmd-v3",
+    "variant_price": 15500.0,
+    "stock": 55,
     "is_available": true,
     "color_slug": "black",
-    "material_slug": "mesh",
+    "material_slug": "textile",
     "size_name": "41"
   },
   {
-    "product_slug": "reebok-floatride-energy-4",
-    "variant_price": 10500.0,
-    "stock": 50,
+    "product_slug": "puma-rs-x-toys",
+    "variant_price": 11990.0,
+    "stock": 80,
+    "is_available": true,
+    "color_slug": "multicolor",
+    "material_slug": "mesh",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "asics-gel-1130",
+    "variant_price": 12500.0,
+    "stock": 70,
     "is_available": true,
     "color_slug": "white",
-    "material_slug": "textile",
+    "material_slug": "mesh",
     "size_name": "40"
   },
   {
-    "product_slug": "reebok-workout-plus",
-    "variant_price": 8500.0,
+    "product_slug": "new-balance-993",
+    "variant_price": 25000.0,
+    "stock": 15,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "suede",
+    "size_name": "43"
+  },
+  {
+    "product_slug": "reebok-zig-kinetica-ii",
+    "variant_price": 13500.0,
+    "stock": 45,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "mesh",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "nike-mercurial-superfly-9",
+    "variant_price": 24900.0,
+    "stock": 30,
+    "is_available": true,
+    "color_slug": "red",
+    "material_slug": "synthetic",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "nike-phantom-gx",
+    "variant_price": 22500.0,
+    "stock": 40,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "synthetic",
+    "size_name": "41"
+  },
+  {
+    "product_slug": "nike-tiempo-legend-10",
+    "variant_price": 19900.0,
+    "stock": 65,
+    "is_available": true,
+    "color_slug": "white",
+    "material_slug": "leather",
+    "size_name": "43"
+  },
+  {
+    "product_slug": "adidas-predator-accuracy",
+    "variant_price": 23500.0,
+    "stock": 25,
+    "is_available": true,
+    "color_slug": "red",
+    "material_slug": "synthetic",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "adidas-copa-mundial",
+    "variant_price": 17500.0,
     "stock": 110,
     "is_available": true,
     "color_slug": "black",
     "material_slug": "leather",
+    "size_name": "41"
+  },
+  {
+    "product_slug": "adidas-x-speedportal",
+    "variant_price": 21000.0,
+    "stock": 50,
+    "is_available": true,
+    "color_slug": "white",
+    "material_slug": "synthetic",
     "size_name": "42"
   },
   {
-    "product_slug": "reebok-freestyle-hi",
-    "variant_price": 9500.0,
-    "stock": 90,
+    "product_slug": "puma-future-ultimate",
+    "variant_price": 19990.0,
+    "stock": 45,
+    "is_available": true,
+    "color_slug": "multicolor",
+    "material_slug": "synthetic",
+    "size_name": "43"
+  },
+  {
+    "product_slug": "puma-ultra-ultimate",
+    "variant_price": 18500.0,
+    "stock": 35,
+    "is_available": true,
+    "color_slug": "red",
+    "material_slug": "synthetic",
+    "size_name": "42"
+  },
+  {
+    "product_slug": "asics-ds-light",
+    "variant_price": 14500.0,
+    "stock": 60,
     "is_available": true,
     "color_slug": "white",
     "material_slug": "leather",
     "size_name": "41"
+  },
+  {
+    "product_slug": "new-balance-furon-v7",
+    "variant_price": 16900.0,
+    "stock": 70,
+    "is_available": true,
+    "color_slug": "black",
+    "material_slug": "synthetic",
+    "size_name": "42"
   }
 ]

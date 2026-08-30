@@ -92,11 +92,13 @@ async def seed_references():
 
 async def reset_references():
     async with AsyncSessionLocal() as session:
-        color_slugs = [color.slug for color in references_data.colors]
-        material_slugs = [material.slug for material in references_data.materials]
-        size_names = [size.name for size in references_data.sizes]
-        category_slugs = [category.slug for category in references_data.categories]
-        brand_slugs = [brand.slug for brand in references_data.brands]
+        color_slugs = [color["slug"] for color in references_data["colors"]]
+        material_slugs = [material["slug"] for material in references_data["materials"]]
+        size_names = [size["name"] for size in references_data["sizes"]]
+        category_slugs = [
+            category["slug"] for category in references_data["categories"]
+        ]
+        brand_slugs = [brand["slug"] for brand in references_data["brands"]]
 
         await session.execute(
             delete(ProductColorModel).where(ProductColorModel.slug.in_(color_slugs))

@@ -13,15 +13,9 @@ install: venv
 dev:
 	@echo "Starting production-ready Gunicorn server..."
 	@if [ -d "$(VENV)" ]; then \
-<<<<<<< HEAD
-		$(VENV)/bin/gunicorn app.app:app -k uvicorn.workers.UvicornWorker --bind 127.0.0.1:8000; \
-	else \
-		gunicorn app.app:app -k uvicorn.workers.UvicornWorker --bind 127.0.0.1:8000; \
-=======
 		$(PYTHON) -m fastapi dev; \
 	else \
 		python3 -m fastapi dev; \
->>>>>>> master
 	fi
 
 test:

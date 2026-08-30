@@ -98,6 +98,36 @@
       "slug": "keds",
       "parent_id": null,
       "image_url": null
+    },
+    {
+      "name": "Ботинки",
+      "slug": "boots",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Сланцы",
+      "slug": "flip_flops",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Лоферы",
+      "slug": "loafers",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Сандалии",
+      "slug": "sandals",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "name": "Бутсы",
+      "slug": "soccer_shoes",
+      "parent_id": null,
+      "image_url": null
     }
   ],
   "brands": [

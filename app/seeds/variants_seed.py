@@ -38,9 +38,9 @@ async def get_references(session: AsyncSession):
         select(ProductSizeModel).where(ProductSizeModel.name.in_(size_names))
     )
     product_ids = {product.slug: product.id for product in products.all()}
-    color_ids = {color.slug: color.id for color in colors}
-    material_ids = {material.slug: material.id for material in materials}
-    size_ids = {size.name: size.id for size in sizes}
+    color_ids = {color.slug: color.id for color in colors.all()}
+    material_ids = {material.slug: material.id for material in materials.all()}
+    size_ids = {size.name: size.id for size in sizes.all()}
 
     return {
         "product_ids": product_ids,
@@ -68,7 +68,7 @@ async def seed_variants():
                 "color_id": color_ids[variant["color_slug"]],
                 "material_id": material_ids[variant["material_slug"]],
                 "size_id": size_ids[variant["size_name"]],
-                "thumbnail": None,
+                "thumbnail": "",
             }
             for variant in variants_data
         ]
@@ -85,6 +85,7 @@ async def seed_variants():
 async def reset_variants():
     async with AsyncSessionLocal() as session:
         references = await get_references(session)
+        print(references)
 
         product_ids = references["product_ids"]
         color_ids = references["color_ids"]
