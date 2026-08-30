@@ -20,12 +20,11 @@ services:
     container_name: shop_fastapi
     restart: always
     environment:
-      DATABASE_URI: "postgresql+asyncpg://local_user:local_password@postgres_db:5432/shop_db"
-      ORIGINS: "http://localhost:3000"
-      JWT_SECRET_KEY: "b9ee58e91fa4808ac30b5dc73318319942d1980a99eb07a167368a1ab455a087"
-      JWT_ALGORITHM: "HS256"
-      JWT_ACCESS_TOKEN_EXPIRE_MINUTES: 600
-      UNSPLASH_ACCESS_KEY: "H-rVzcg3zQzDe8ovYGoK3UC7MRuUaZU5lHZIxegSas8"
+      DATABASE_URI: ${DATABASE_URI}
+      ALLOW_ORIGINS: ${ALLOW_ORIGINS}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+      JWT_ACCESS_TOKEN_EXPIRE_MINUTES: ${JWT_ACCESS_TOKEN_EXPIRE_MINUTES}
     ports:
       - "8000:8000"
     depends_on:
