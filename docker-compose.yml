@@ -1,20 +1,4 @@
 services:
-  postgres_db:
-    networks:
-      default:
-        aliases:
-          - postgres_db
-    image: postgres:17-alpine
-    container_name: shop_postgres
-    restart: always
-    environment:
-      POSTGRES_USER: local_user
-      POSTGRES_PASSWORD: local_password
-      POSTGRES_DB: shop_db
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
   api:
     build: .
     container_name: shop_fastapi
@@ -27,13 +11,9 @@ services:
       JWT_ACCESS_TOKEN_EXPIRE_MINUTES: ${JWT_ACCESS_TOKEN_EXPIRE_MINUTES}
     ports:
       - "8000:8000"
-    depends_on:
-      - postgres_db
 
 networks:
   default:
     ipam:
       config:
         - subnet: 172.30.0.0/16
-volumes:
-  postgres_data:
