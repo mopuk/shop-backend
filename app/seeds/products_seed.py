@@ -59,36 +59,7 @@ async def seed_products():
 
 async def reset_products():
     async with AsyncSessionLocal() as session:
-        slugs = [product["slug"] for product in products_data]
-
-        result = await session.execute(
-            select(ProductModel.id).where(ProductModel.slug.in_(slugs))
-        )
-
-        product_ids = result.scalars().all()
-
-        if not product_ids:
-            return
-
-        result = await session.execute(
-            select(ProductVariantModel.id).where(
-                ProductVariantModel.product_id.in_(product_ids)
-            )
-        )
-
-        variant_ids = result.scalars().all()
-        if variant_ids:
-            await session.execute(
-                delete(ProductImageModel).where(
-                    ProductImageModel.variant_id.in_(variant_ids)
-                )
-            )
-
-        await session.execute(
-            delete(ProductVariantModel).where(ProductVariantModel.id.in_(variant_ids))
-        )
-
-        await session.execute(
-            delete(ProductModel).where(ProductModel.id.in_(product_ids))
-        )
+        await session.execute(delete(ProductImageModel))
+        await session.execute(delete(ProductVariantModel))
+        await session.execute(delete(ProductModel))
         await session.commit()
