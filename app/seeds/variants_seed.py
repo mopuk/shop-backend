@@ -1,12 +1,13 @@
 from pathlib import Path
 
-from sqlalchemy import delete, select, tuple_
+from sqlalchemy import delete, select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import AsyncSessionLocal
 from app.models.product import (
     ProductColorModel,
+    ProductImageModel,
     ProductMaterialModel,
     ProductModel,
     ProductSizeModel,
@@ -84,32 +85,6 @@ async def seed_variants():
 
 async def reset_variants():
     async with AsyncSessionLocal() as session:
-        references = await get_references(session)
-        print(references)
-
-        product_ids = references["product_ids"]
-        color_ids = references["color_ids"]
-        material_ids = references["material_ids"]
-        size_ids = references["size_ids"]
-
-        variant_keys = [
-            (
-                product_ids[variant["product_slug"]],
-                color_ids[variant["color_slug"]],
-                material_ids[variant["material_slug"]],
-                size_ids[variant["size_name"]],
-            )
-            for variant in variants_data
-        ]
-        await session.execute(
-            delete(ProductVariantModel).where(
-                tuple_(
-                    ProductVariantModel.product_id,
-                    ProductVariantModel.color_id,
-                    ProductVariantModel.material_id,
-                    ProductVariantModel.size_id,
-                ).in_(variant_keys)
-            )
-        )
-
+        await session.execute(delete(ProductImageModel))
+        await session.execute(delete(ProductVariantModel))
         await session.commit()
