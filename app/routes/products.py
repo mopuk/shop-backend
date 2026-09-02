@@ -24,22 +24,21 @@ from app.schemas.product import (
     ProductVariantListResponse,
 )
 
-router = APIRouter(
-    prefix="/api/v1",
-    tags=["products"]
-    )
+router = APIRouter(prefix="/api/v1", tags=["products"])
 
 
 @router.get("/products", response_model=ProductVariantListResponse)
 async def get_products(
-        db: Annotated[AsyncSession, Depends(get_db)],
-        featured: bool = False,
-        categories: Annotated[list[str] | None, Query()] = None,
-        brands: Annotated[list[str] | None, Query()] = None,
-        sizes: Annotated[list[str] | None, Query()] = None,
-        materials: Annotated[list[str] | None, Query()] = None,
-        colors: Annotated[list[str] | None, Query()] = None,
-    ):
+    db: Annotated[AsyncSession, Depends(get_db)],
+    featured: bool = False,
+    categories: Annotated[list[str] | None, Query()] = None,
+    brands: Annotated[list[str] | None, Query()] = None,
+    sizes: Annotated[list[str] | None, Query()] = None,
+    materials: Annotated[list[str] | None, Query()] = None,
+    colors: Annotated[list[str] | None, Query()] = None,
+    offset: Annotated[int, Query()] = 0,
+    limit: Annotated[int, Query()] = 20,
+):
 
     smtm = select(ProductVariantModel).options(
         selectinload(ProductVariantModel.images),
@@ -47,47 +46,43 @@ async def get_products(
         joinedload(ProductVariantModel.size),
         joinedload(ProductVariantModel.color),
         joinedload(ProductVariantModel.product).options(
-                selectinload(ProductModel.brand),
-                selectinload(ProductModel.category)
-            )
-        )
+            selectinload(ProductModel.brand), selectinload(ProductModel.category)
+        ),
+    )
 
     if featured:
         smtm = smtm.where(
-            ProductVariantModel.product.has(
-                ProductModel.is_featured == True
-                )
-            )
+            ProductVariantModel.product.has(ProductModel.is_featured == True)
+        )
 
     if categories:
         smtm = smtm.where(
             ProductVariantModel.product.has(
                 ProductModel.category.has(CategoryModel.slug.in_(categories))
-                )
             )
+        )
     if brands:
         smtm = smtm.where(
             ProductVariantModel.product.has(
                 ProductModel.brand.has(BrandModel.slug.in_(brands))
-                )
             )
+        )
     if sizes:
         smtm = smtm.where(
             ProductVariantModel.size.has(ProductSizeModel.name.in_(sizes))
-            )
+        )
     if materials:
         smtm = smtm.where(
             ProductVariantModel.material.has(ProductMaterialModel.slug.in_(materials))
-            )
+        )
     if colors:
         smtm = smtm.where(
             ProductVariantModel.color.has(ProductColorModel.slug.in_(colors))
-            )
+        )
 
-    variants = await db.scalars(smtm)
-    return {
-    "variants": variants.unique().all()
-}
+    variants = await db.scalars(smtm.limit(limit).offset(offset))
+    return {"variants": variants.unique().all()}
+
 
 @router.get("/products/filters", response_model=FiltersListResponse)
 async def get_filters(db: Annotated[AsyncSession, Depends(get_db)]):
@@ -96,22 +91,14 @@ async def get_filters(db: Annotated[AsyncSession, Depends(get_db)]):
         .join(ProductVariantModel)
         .distinct()
         .order_by(ProductSizeModel.sort_order)
-        )
-    colors = await db.scalars(
-        select(ProductColorModel)
-        .join(ProductVariantModel)
-        .distinct()
-        )
-    materials = await db.scalars(
-        select(ProductMaterialModel)
-        .join(ProductVariantModel)
-        .distinct()
-        )
-    brands = await db.scalars(
-        select(BrandModel)
-        .join(ProductModel)
-        .distinct()
     )
+    colors = await db.scalars(
+        select(ProductColorModel).join(ProductVariantModel).distinct()
+    )
+    materials = await db.scalars(
+        select(ProductMaterialModel).join(ProductVariantModel).distinct()
+    )
+    brands = await db.scalars(select(BrandModel).join(ProductModel).distinct())
     return {
         "sizes": sizes.all(),
         "colors": colors.all(),
@@ -120,12 +107,13 @@ async def get_filters(db: Annotated[AsyncSession, Depends(get_db)]):
     }
 
 
-
 @router.get("/products/{product_slug}", response_model=ProductSchema)
 async def get_product(product_slug: str, db: Annotated[AsyncSession, Depends(get_db)]):
 
     try:
-        smtm = select(ProductModel).options(
+        smtm = (
+            select(ProductModel)
+            .options(
                 selectinload(ProductModel.variants).options(
                     selectinload(ProductVariantModel.images),
                     joinedload(ProductVariantModel.color),
@@ -134,7 +122,9 @@ async def get_product(product_slug: str, db: Annotated[AsyncSession, Depends(get
                 ),
                 selectinload(ProductModel.category),
                 selectinload(ProductModel.brand),
-            ).where(ProductModel.slug == product_slug)
+            )
+            .where(ProductModel.slug == product_slug)
+        )
         result = await db.execute(smtm)
         product = result.scalar_one_or_none()
     except SQLAlchemyError:
@@ -144,14 +134,13 @@ async def get_product(product_slug: str, db: Annotated[AsyncSession, Depends(get
 
     return product
 
+
 @router.get("/categories", response_model=CategoryListResponse)
 async def get_categories(db: Annotated[AsyncSession, Depends(get_db)]):
 
     categories = await db.execute(select(CategoryModel))
 
-    return {
-        "categories": categories.scalars().all()
-    }
+    return {"categories": categories.scalars().all()}
 
 
 @router.get("/brands", response_model=BrandListResponse)
@@ -159,6 +148,4 @@ async def get_brands(db: Annotated[AsyncSession, Depends(get_db)]):
 
     brands = await db.scalars(select(BrandModel))
 
-    return {
-        "brands": brands.all()
-    }
+    return {"brands": brands.all()}
