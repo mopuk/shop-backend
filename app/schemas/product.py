@@ -123,8 +123,17 @@ class BrandSchema(BaseSchema):
     slug: Annotated[str, Query(max_length=255)]
 
 
+class PaginationSchema(BaseSchema):
+    total_items: int
+    total_pages: int
+    current_page: int
+    has_next: bool
+    has_previous: bool
+
+
 class ProductVariantListResponse(BaseSchema):
     variants: list[ProductVariantSchema]
+    pagination: PaginationSchema
 
 
 class CategoryListResponse(BaseSchema):
