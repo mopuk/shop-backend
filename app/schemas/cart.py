@@ -3,13 +3,17 @@ from decimal import Decimal
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from app.schemas.product import ProductVariantSchema
+
 
 class BaseSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
+
 class CartItemCreate(BaseSchema):
     variant_id: int
     quantity: int = 1
+
 
 class CartVariantSnippet(BaseModel):
     id: int
@@ -18,11 +22,13 @@ class CartVariantSnippet(BaseModel):
 
     model_config = ConfigDict(from_attributes=True, populate_by_name=True)
 
+
 class CartItemResponse(BaseSchema):
     id: int
     quantity: int
     price_at_addition: Decimal
-    variant: CartVariantSnippet
+    variant: ProductVariantSchema
+
 
 class CartResponse(BaseSchema):
     user_id: int

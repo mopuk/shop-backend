@@ -9,7 +9,7 @@ from sqlalchemy.orm import joinedload, selectinload
 
 from app.database import get_db
 from app.models.cart import CartItemModel, CartModel
-from app.models.product import ProductVariantModel
+from app.models.product import ProductModel, ProductVariantModel
 from app.models.user import UserModel
 from app.routes.auth import get_current_active_user
 from app.schemas.cart import CartItemCreate, CartResponse
@@ -23,7 +23,13 @@ CART_ITEMS_OPTIONS = (selectinload(CartModel.items)
     .options(
         joinedload(CartItemModel.variant).options(
             selectinload(ProductVariantModel.images),
-            joinedload(ProductVariantModel.product)
+            joinedload(ProductVariantModel.size),
+            joinedload(ProductVariantModel.color),
+            joinedload(ProductVariantModel.material),
+            joinedload(ProductVariantModel.product).options(
+                joinedload(ProductModel.brand),
+                joinedload(ProductModel.category),
+            )
         )
     )
 )

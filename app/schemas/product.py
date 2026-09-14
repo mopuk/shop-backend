@@ -68,6 +68,12 @@ class ProductSummarySchema(BaseSchema):
     name: str
     slug: str
     thumbnail: str
+    description: Annotated[str, Query(max_length=250)] | None = None
+    short_description: Annotated[str, Query(max_length=50)] | None = None
+    tags: list[tag_string] | None = None
+    is_featured: bool
+    gender: TargetGroup
+    base_price: Decimal = Field(max_digits=10, decimal_places=2)
     brand: BrandSchema
     category: CategorySummarySchema
 
