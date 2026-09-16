@@ -18,7 +18,14 @@ class Config:
         "ALLOW_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000"
     ).split(",")
     ALLOW_CREDENTIALS: bool = True
-    ALLOW_METHODS: list[str] = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    ALLOW_METHODS: list[str] = [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "OPTIONS",
+    ]
     ALLOW_HEADERS: list[str] = [
         "Content-Type",
         "Authorization",
