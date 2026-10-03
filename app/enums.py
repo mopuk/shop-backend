@@ -6,11 +6,14 @@ class TargetGroup(Enum):
     women = "women"
     unisex = "unisex"
 
+
 class Role(Enum):
     customer = "customer"
     admin = "admin"
+
 
 class OrderStatus(Enum):
     pending = "pending"
     paid = "paid"
     delivered = "delivered"
+    canceled = "canceled"
