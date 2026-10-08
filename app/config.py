@@ -6,12 +6,12 @@ load_dotenv()
 
 
 class Config:
-    DATABASE_URL: str = os.getenv("DATABASE_URI")
+    DATABASE_URL: str = os.environ["DATABASE_URI"]
 
-    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY")
+    JWT_SECRET_KEY: str = os.environ["JWT_SECRET_KEY"]
     JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: str = os.getenv(
-        "JWT_ACCESS_TOKEN_EXPIRE_MINUTES", 60 * 10
+        "JWT_ACCESS_TOKEN_EXPIRE_MINUTES", str(60 * 10)
     )
 
     ALLOW_ORIGINS: list[str] = os.getenv(
@@ -33,6 +33,10 @@ class Config:
         "X-Requested-With",
         "Idempotency-Key",
     ]
+
+    STRIPE_SECRET_KEY = os.environ["STRIPE_SECRET_KEY"]
+    STRIPE_PUBLISHABLE_KEY = os.environ["STRIPE_PUBLISHABLE_KEY"]
+    STRIPE_WEBHOOK_SECRET = os.environ["STRIPE_WEBHOOK_SECRET"]
 
 
 config = Config()

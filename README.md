@@ -4,14 +4,12 @@ A FastAPI-based e-commerce backend API for managing products, users, shopping ca
 
 ## Overview
 
-This is a RESTful API backend for an online shop built with FastAPI and PostgreSQL. It provides complete e-commerce functionality including user authentication, product catalog management, shopping cart operations, and order processing.
+This is a RESTful API backend for an online shop built with FastAPI and PostgreSQL. It provides e-commerce functionality including user authentication, product catalog management, shopping cart operations, and order processing, as well as payment.
 
 ## Tech Stack
 
-- **Framework**: FastAPI 0.139.0
+- **Framework**: FastAPI
 - **Database**: PostgreSQL with SQLAlchemy ORM
-- **Authentication**: JWT (JSON Web Tokens)
-- **Password Hashing**: Argon2
 - **Database Migrations**: Alembic
 - **Deployment**: Docker & Gunicorn
 - **API Documentation**: Automatic OpenAPI/Swagger (built-in with FastAPI)
@@ -22,33 +20,40 @@ This is a RESTful API backend for an online shop built with FastAPI and PostgreS
 - Shopping cart management
 - Product catalog with variants (colors, materials, pricing)
 - Order processing and tracking
-- Payment processing integration
+- Payment processing integration with Stripe
 - Product categorization and branding
-- CORS support for frontend integration
 - Database migrations with Alembic
 
-## Project Structure
+## Prerequisites
 
-See [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) for a detailed breakdown of the project organization.
+1. Python 3.14+
+2. PostgreSQL 12+
+3. Docker & Docker Compose (optional)
+4. `.env` file in the root directory with following keys:
 
-## Quick Start
+- DATABASE_URI
+- JWT_SECRET_KEY
+- JWT_ALGORITHM
+- JWT_ACCESS_TOKEN_EXPIRE_MINUTES
+- ORIGINS
+- STRIPE_SECRET_KEY
+- STRIPE_PUBLISHABLE_KEY
 
-### Prerequisites
+### Installation
 
-- Python 3.14+
-- PostgreSQL 12+
-- Docker & Docker Compose (optional)
+1. **Clone the repository**
 
-### Setup
+```bash
+   git clone https://github.com/mopuk/shop-backend
+```
 
-1. **Clone the repository** (if applicable)
 2. **Install dependencies**:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Set up environment variables** (create `.env` file):
+3. **Set up environment variables** (create `.env` file in the root):
 
    ```
    DATABASE_URL=postgresql://user:password@localhost:5432/shop_db
@@ -86,9 +91,11 @@ The API will be available at `http://localhost:8000`
 docker-compose up
 ```
 
-This will start both PostgreSQL and the FastAPI server.
+This will start the FastAPI server.
 
 ## API Endpoints
+
+API prefix - `/api/v1`
 
 ### Authentication
 
@@ -116,7 +123,7 @@ This will start both PostgreSQL and the FastAPI server.
 - `GET /orders` - List user's orders
 - `POST /orders` - Create new order
 - `GET /orders/{id}` - Get order details
-- `PUT /orders/{id}` - Update order
+- `DELETE /orders/{id}` - Delete order
 
 ### Payments
 
@@ -132,8 +139,6 @@ The project uses SQLAlchemy ORM with PostgreSQL. Key models include:
 - **Cart & CartItem**: Shopping cart management
 - **Order & OrderItem**: Order history and details
 - **Category & Brand**: Product classification
-
-See [docs/MODELS.md](docs/MODELS.md) for detailed model documentation.
 
 ## Configuration
 
