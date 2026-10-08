@@ -45,7 +45,7 @@ async def seed_products():
                 ),
                 "brand_id": brands.get("-".join(item["brand"].lower().split(" "))),
                 "slug": item.get("slug"),
-                "is_featured": False,
+                "is_featured": item.get("is_featured", False),
                 "thumbnail": "",
             }
             for item in products_data
