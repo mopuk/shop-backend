@@ -24,22 +24,25 @@ client = stripe.StripeClient(config.STRIPE_SECRET_KEY)
 router = APIRouter(prefix="/api/v1/payment", tags=["payments"])
 
 
-@router.post("/create-intent")
+@router.post("/create-intent/{order_number}")
 async def create_intent(
-    order_id: int,
+    order_number: str,
     current_user: Annotated[UserModel, Depends(get_current_active_user)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
     order = await db.scalar(
         select(OrderModel).where(
-            OrderModel.id == order_id, OrderModel.user_id == current_user.id
+            OrderModel.order_number == order_number,
+            OrderModel.user_id == current_user.id,
         )
     )
 
     if order is None:
         raise HTTPException(404, "Order not found")
-    elif order.status != OrderStatus.processing:
-        raise HTTPException(400, "Order is not processing and cannot be paid for")
+    elif order.status not in (OrderStatus.processing, OrderStatus.created):
+        raise HTTPException(
+            400, "Order is not processing or created and cannot be paid for"
+        )
 
     if order.stripe_payment_intent_id is not None:
         try:
@@ -78,7 +81,7 @@ async def create_intent(
 @router.post("/webhook")
 async def stripe_webhook(
     request: Request,
-    stripe_signature: Annotated[str | None, Depends(Header(alias="Stripe-Signature"))],
+    stripe_signature: Annotated[str | None, Header(alias="Stripe-Signature")],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
     if not stripe_signature:
@@ -98,7 +101,7 @@ async def stripe_webhook(
         raise HTTPException(400, "Invalid payload")
 
     event_type = event["type"]
-    event_data = event["data"]["object"]
+    event_data = event["data"]["object"].to_dict()
 
     if event_type == "payment_intent.succeeded":
         await handle_payment_success(event_data, db)

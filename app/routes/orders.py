@@ -15,20 +15,20 @@ from app.models.product import ProductVariantModel
 from app.models.user import UserModel
 from app.routes.auth import get_current_active_user
 from app.schemas.order import OrderListSchema, OrderSchema
-from app.services.orders import get_order_by_id, get_orders_by_user_id
+from app.services.orders import get_order_by_number, get_orders_by_user_id
 
 router = APIRouter(prefix="/api/v1", tags=["orders"])
 
 SHIPPING_FLAT_RATE = Decimal("5.99")
 
 
-@router.get("/orders/{order_id}", response_model=OrderSchema)
+@router.get("/orders/{order_number}", response_model=OrderSchema)
 async def get_order(
-    order_id: int,
+    order_number: str,
     current_user: Annotated[UserModel, Depends(get_current_active_user)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
-    return await get_order_by_id(order_id, current_user.id, db)
+    return await get_order_by_number(order_number, current_user.id, db)
 
 
 @router.get("/orders", response_model=OrderListSchema)
@@ -103,14 +103,14 @@ async def create_order(
     return order_with_items
 
 
-@router.delete("/orders/{order_id}", status_code=204)
+@router.delete("/orders/{order_number}", status_code=204)
 async def delete_order(
-    order_id: int,
+    order_number: str,
     current_user: Annotated[UserModel, Depends(get_current_active_user)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
     user_id = current_user.id
-    order = await get_order_by_id(order_id, user_id, db)
+    order = await get_order_by_number(order_number, user_id, db)
 
     if order.status != OrderStatus.processing:
         raise HTTPException(409, "Only processing orders can be deleted")

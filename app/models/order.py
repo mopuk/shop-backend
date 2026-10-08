@@ -33,7 +33,9 @@ class OrderModel(Base):
         default=generate_order_number,
     )
     status: Mapped[OrderStatus] = mapped_column(
-        Enum(OrderStatus, native_enum=True), nullable=False, default=OrderStatus.pending
+        Enum(OrderStatus, native_enum=True),
+        nullable=False,
+        default=OrderStatus.processing,
     )
 
     subtotal: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)

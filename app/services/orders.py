@@ -6,6 +6,19 @@ from sqlalchemy.orm import selectinload
 from app.models.order import OrderItemModel, OrderModel
 
 
+async def get_order_by_number(order_number: str, user_id: int, db: AsyncSession):
+    order = await db.scalar(
+        select(OrderModel)
+        .where(OrderModel.order_number == order_number, OrderModel.user_id == user_id)
+        .options(
+            selectinload(OrderModel.items).options(selectinload(OrderItemModel.variant))
+        )
+    )
+    if order is None:
+        raise HTTPException(404, "Order not found")
+    return order
+
+
 async def get_order_by_id(order_id: int, user_id: int, db: AsyncSession):
     order = await db.scalar(
         select(OrderModel)
