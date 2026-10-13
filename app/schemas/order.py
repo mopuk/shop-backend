@@ -1,3 +1,4 @@
+from datetime import datetime
 from decimal import Decimal
 
 from pydantic import BaseModel, ConfigDict
@@ -8,8 +9,10 @@ from app.enums import OrderStatus
 class BaseSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
+
 class OrderBaseSchema(BaseSchema):
     pass
+
 
 class OrderSchema(OrderBaseSchema):
     id: int
@@ -20,6 +23,9 @@ class OrderSchema(OrderBaseSchema):
     total: Decimal
     grand_total: Decimal
     status: OrderStatus
+    created_at: datetime
+    updated_at: datetime
+
 
 class OrderListSchema(OrderBaseSchema):
     orders: list[OrderSchema]

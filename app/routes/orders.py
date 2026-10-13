@@ -66,7 +66,7 @@ async def create_order(
 
     new_order = OrderModel(
         user_id=current_user.id,
-        status=OrderStatus.processing,
+        status=OrderStatus.created,
         subtotal=subtotal,
         total=total,
         shipping_total=shipping_total,
