@@ -15,7 +15,6 @@ from app.services.payments import (
     handle_payment_cancelation,
     handle_payment_creation,
     handle_payment_failure,
-    handle_payment_processing,
     handle_payment_success,
 )
 
@@ -111,8 +110,6 @@ async def stripe_webhook(
         await handle_payment_cancelation(event_data, db)
     elif event_type == "payment_intent.created":
         await handle_payment_creation(event_data, db)
-    elif event_type == "payment_intent.processing":
-        await handle_payment_processing(event_data, db)
     else:
         return {"status": 200, "message": f"Unhandled event type: {event_type}"}
 

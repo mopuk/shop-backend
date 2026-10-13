@@ -60,16 +60,5 @@ async def handle_payment_creation(event_data: dict, db: AsyncSession):
 
     order = await get_order_by_id(order_id, user_id, db)
     if order:
-        order.status = OrderStatus.created
-        await db.commit()
-
-
-async def handle_payment_processing(event_data: dict, db: AsyncSession):
-    order_id, user_id = _extract_order_and_user_ids(event_data)
-    if not order_id or not user_id:
-        return
-
-    order = await get_order_by_id(order_id, user_id, db)
-    if order:
         order.status = OrderStatus.processing
         await db.commit()

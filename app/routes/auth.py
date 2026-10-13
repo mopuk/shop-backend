@@ -42,7 +42,7 @@ async def login(
         )
 
     access_token_expires = timedelta(
-        minutes=int(config.JWT_ACCESS_TOKEN_EXPIRE_MINUTES)
+        minutes=int(config.JWT_ACCESS_TOKEN_EXPIRE_MINUTES) * 60
     )
     access_token = create_access_token(
         data={"sub": str(user.id)}, expires_delta=access_token_expires
@@ -85,7 +85,9 @@ async def register(
 
     access_token = create_access_token(
         data={"sub": str(new_user.id)},
-        expires_delta=timedelta(minutes=int(config.JWT_ACCESS_TOKEN_EXPIRE_MINUTES)),
+        expires_delta=timedelta(
+            minutes=int(config.JWT_ACCESS_TOKEN_EXPIRE_MINUTES) * 60
+        ),
     )
     return Token(access_token=access_token, token_type="bearer")
 

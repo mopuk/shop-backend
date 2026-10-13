@@ -18,3 +18,4 @@ class OrderStatus(Enum):
     canceled = "canceled"
     created = "created"
     failed = "failed"
+    delivered = "delivered"
