@@ -43,7 +43,21 @@ class OrderModel(Base):
     updated_at: Mapped[datetime] = mapped_column(server_default=func.now(), server_onupdate=FetchedValue())
 
     user: Mapped["UserModel"] = relationship("UserModel", back_populates="orders")
+<<<<<<< Updated upstream
     items: Mapped[list["OrderItemModel"]] = relationship("OrderItemModel", back_populates="order", cascade="all, delete-orphan")
+=======
+    items: Mapped[list["OrderItemModel"]] = relationship(
+        "OrderItemModel", back_populates="order", cascade="all, delete-orphan"
+    )
+
+    def __str__(self) -> str:
+        return (
+            f"Order #{self.id}: {self.status}\n"
+            f"items: {[f'{item!s}\n' for item in self.items]}\n"
+            f"created at: {self.created_at}, updated at: {self.updated_at}"
+        )
+
+>>>>>>> Stashed changes
 
 class OrderItemModel(Base):
     __tablename__ = "order_items"
@@ -58,3 +72,6 @@ class OrderItemModel(Base):
 
     order: Mapped["OrderModel"] = relationship("OrderModel", back_populates="items")
     variant: Mapped["ProductVariantModel"] = relationship("ProductVariantModel")
+
+    def __str__(self) -> str:
+        return f"Order item #{self.id}: {self.product_name}, {self.price_paid} x {self.quantity}"
