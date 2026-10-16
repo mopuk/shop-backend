@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.models.order import OrderItemModel, OrderModel
+from app.models.product import ProductVariantModel
 
 
 async def get_order_by_number(order_number: str, user_id: int, db: AsyncSession):
@@ -11,9 +12,12 @@ async def get_order_by_number(order_number: str, user_id: int, db: AsyncSession)
         select(OrderModel)
         .where(OrderModel.order_number == order_number, OrderModel.user_id == user_id)
         .options(
-            selectinload(OrderModel.items).options(selectinload(OrderItemModel.variant))
+            selectinload(OrderModel.items)
+            .selectinload(OrderItemModel.variant)
+            .selectinload(ProductVariantModel.product)
         )
     )
+
     if order is None:
         raise HTTPException(404, "Order not found")
     return order
@@ -24,7 +28,9 @@ async def get_order_by_id(order_id: int, user_id: int, db: AsyncSession):
         select(OrderModel)
         .where(OrderModel.id == order_id, OrderModel.user_id == user_id)
         .options(
-            selectinload(OrderModel.items).options(selectinload(OrderItemModel.variant))
+            selectinload(OrderModel.items)
+            .selectinload(OrderItemModel.variant)
+            .selectinload(ProductVariantModel.product)
         )
     )
 
@@ -35,6 +41,14 @@ async def get_order_by_id(order_id: int, user_id: int, db: AsyncSession):
 
 
 async def get_orders_by_user_id(user_id: int, db: AsyncSession):
-    orders = await db.scalars(select(OrderModel).where(OrderModel.user_id == user_id))
+    orders = await db.scalars(
+        select(OrderModel)
+        .where(OrderModel.user_id == user_id)
+        .options(
+            selectinload(OrderModel.items)
+            .selectinload(OrderItemModel.variant)
+            .selectinload(ProductVariantModel.product)
+        )
+    )
 
     return orders.all()

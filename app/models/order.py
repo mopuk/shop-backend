@@ -48,14 +48,17 @@ class OrderModel(Base):
         server_default=func.now(), server_onupdate=FetchedValue()
     )
 
-    stripe_payment_intent_id: Mapped[str | None] = mapped_column(
-        String(256), nullable=True, unique=True, index=True
-    )
-
     user: Mapped["UserModel"] = relationship("UserModel", back_populates="orders")
     items: Mapped[list["OrderItemModel"]] = relationship(
         "OrderItemModel", back_populates="order", cascade="all, delete-orphan"
     )
+
+    def __str__(self) -> str:
+        return (
+            f"Order #{self.id}: {self.status}\n"
+            f"items: {[f'{item!s}\n' for item in self.items]}\n"
+            f"created at: {self.created_at}, updated at: {self.updated_at}"
+        )
 
 
 class OrderItemModel(Base):
