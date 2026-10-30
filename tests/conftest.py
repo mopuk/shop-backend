@@ -29,21 +29,24 @@ def setup_testcontainers():
         yield async_url
 
 
-@pytest.fixture(scope="session", autouse=True)
-def async_db_engine(setup_testcontainers: str):
+@pytest.fixture(autouse=True)
+async def async_db_engine(setup_testcontainers: str):
     async_engine = create_async_engine(setup_testcontainers, echo=False)
 
-    yield async_engine
-
-    async_engine.sync_engine.dispose()
+    try:
+        yield async_engine
+    finally:
+        await async_engine.dispose()
 
 
 @pytest.fixture(autouse=True)
 async def db_session(async_db_engine):
     session_maker = async_sessionmaker(bind=async_db_engine, expire_on_commit=False)
-    async with session_maker() as session, session.begin():
-        yield session
-        await session.rollback()
+    async with session_maker() as session:
+        try:
+            yield session
+        finally:
+            await session.rollback()
 
 
 @pytest.fixture
