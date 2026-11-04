@@ -61,7 +61,7 @@ async def get_current_user(
         if user_id_str is None:
             raise credentials_exception
         token_data = TokenData(user_id=int(user_id_str))
-    except jwt.InvalidTokenError as exc:
+    except (jwt.InvalidTokenError, ValueError) as exc:
         raise credentials_exception from exc
 
     user = await get_user(token_data.user_id, db=db)

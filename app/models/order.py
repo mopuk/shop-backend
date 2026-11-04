@@ -37,6 +37,9 @@ class OrderModel(Base):
         nullable=False,
         default=OrderStatus.processing,
     )
+    stripe_payment_intent_id: Mapped[str | None] = mapped_column(
+        String(256), nullable=True, unique=True, index=True
+    )
 
     subtotal: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
     total: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)

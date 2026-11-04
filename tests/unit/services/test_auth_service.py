@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from datetime import timedelta
 
 import pytest
+from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.enums import Role
@@ -9,6 +10,7 @@ from app.security import get_password_hash
 from app.services.auth import (
     authenticate_user,
     create_access_token,
+    get_current_active_user,
     get_current_user,
     get_user,
     get_user_by_email,
@@ -221,3 +223,71 @@ async def test_authenticate_user(
     assert found_user is not None
     assert found_user is not False
     assert found_user.id == new_user.id
+
+
+@pytest.mark.anyio
+async def test_user_lookup_returns_none_for_unknown_values(db_session: AsyncSession):
+    assert await get_user_by_id(999, db_session) is None
+    assert await get_user_by_email("missing@example.com", db_session) is None
+    assert await get_user_by_username("missing-user", db_session) is None
+    assert await get_user("missing@example.com", db_session) is None
+    assert await get_user("missing-user", db_session) is None
+    assert await get_user(999, db_session) is None
+
+
+@pytest.mark.anyio
+async def test_authenticate_user_rejects_wrong_and_unknown_credentials(
+    db_session: AsyncSession,
+):
+    password = "correct1!"
+    user = UserFactory.build(
+        username="credential-user",
+        email="credential@example.com",
+        hashed_password=get_password_hash(password),
+    )
+    db_session.add(user)
+    await db_session.flush()
+
+    assert await authenticate_user(user.username, "incorrect1!", db_session) is False
+    assert await authenticate_user("unknown-user", password, db_session) is False
+
+
+@pytest.mark.anyio
+async def test_get_current_user_rejects_expired_and_malformed_subject_tokens(
+    db_session: AsyncSession,
+):
+    expired_token = create_access_token(
+        {"sub": "1"}, expires_delta=timedelta(seconds=-1)
+    )
+    missing_subject_token = create_access_token({"aud": "shop"})
+    malformed_subject_token = create_access_token({"sub": "not-an-id"})
+
+    for token in (expired_token, missing_subject_token, malformed_subject_token):
+        with pytest.raises(HTTPException) as error:
+            await get_current_user(token=token, db=db_session)
+        assert error.value.status_code == 401
+
+
+@pytest.mark.anyio
+async def test_get_current_user_reports_missing_user(db_session: AsyncSession):
+    token = create_access_token({"sub": "987654"})
+
+    with pytest.raises(HTTPException) as error:
+        await get_current_user(token=token, db=db_session)
+
+    assert error.value.status_code == 404
+
+
+@pytest.mark.anyio
+async def test_get_current_active_user_rejects_inactive_user(db_session: AsyncSession):
+    user = UserFactory.build(
+        username="inactive-service-user",
+        email="inactive-service@example.com",
+        is_active=False,
+        role=Role.customer,
+    )
+
+    with pytest.raises(HTTPException) as error:
+        await get_current_active_user(current_user=user)
+
+    assert error.value.status_code == 403
