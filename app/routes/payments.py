@@ -80,8 +80,8 @@ async def create_intent(
 @router.post("/webhook")
 async def stripe_webhook(
     request: Request,
-    stripe_signature: Annotated[str | None, Header(alias="Stripe-Signature")],
     db: Annotated[AsyncSession, Depends(get_db)],
+    stripe_signature: Annotated[str | None, Header(alias="Stripe-Signature")] = None,
 ):
     if not stripe_signature:
         raise HTTPException(400, "Missing Stripe-Signature Header")

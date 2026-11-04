@@ -19,4 +19,8 @@ dev:
 	fi
 
 test:
-	@echo "No tests configured"
+	@if [ -x "$(PYTHON)" ]; then \
+		$(PYTHON) -m pytest -q; \
+	else \
+		python3 -m pytest -q; \
+	fi

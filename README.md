@@ -14,6 +14,17 @@ This is a RESTful API backend for an online shop built with FastAPI and PostgreS
 - **Deployment**: Docker & Gunicorn
 - **API Documentation**: Automatic OpenAPI/Swagger (built-in with FastAPI)
 
+## Tests
+
+Run the test suite with:
+
+```bash
+make test
+```
+
+Tests use an isolated in-memory SQLite database and do not require a running
+PostgreSQL server or Docker.
+
 ## Features
 
 - User authentication and authorization with JWT tokens
